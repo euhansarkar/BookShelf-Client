@@ -1,0 +1,50 @@
+[
+    {
+        "category_id": "comic_books",
+        "category_Name": "Comic Books"
+    },
+    {
+        "category_id": "historical_books",
+        "category_Name": "Historical Books"
+    },
+    {
+        "category_id": "short_story_books",
+        "category_Name": "Short Story Books"
+    },
+    {
+        "category_id": "theoretical_books",
+        "category_Name": "Theoretical Books"
+    },
+    {
+        "category_id": "adventure_books",
+        "category_Name": "Adeventure Books"
+    },
+    {
+        "category_id": "novel_books",
+        "category_Name": "Novel Books"
+    },
+    {
+        "category_id": "biographical_books",
+        "category_Name": "Biographical Books"
+    },
+    {
+        "category_id": "travel_books",
+        "category_Name": "Travel Books"
+    },
+    {
+        "category_id": "art_books",
+        "category_Name": "Art Books"
+    },
+    {
+        "category_id": "development_books",
+        "category_Name": "Development Books"
+    },
+    {
+        "category_id": "thriller_books",
+        "category_Name": "Thriller Books"
+    },
+    {
+        "category_id": "motivational_books",
+        "category_Name": "Motivational Books"
+    }
+]
