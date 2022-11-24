@@ -35,16 +35,16 @@ const SignUp = () => {
 
   const handleGoogleSignIn = () => {
     signInWithGoogle(googleProvider)
-    .then(result => {
-      const user = result.user;
-      console.log(user);
-      setSignUpError(null);
-    })
-    .catch(err => {
-      console.log(err);
-      setSignUpError(err.message)
-    })
-  }
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        setSignUpError(null);
+      })
+      .catch((err) => {
+        console.log(err);
+        setSignUpError(err.message);
+      });
+  };
 
   return (
     <div className="hero min-h-screen bg-base-200">
@@ -62,13 +62,15 @@ const SignUp = () => {
                 </label>
                 <input
                   {...register("name", {
-                    required: `your name is required`
+                    required: `your name is required`,
                   })}
                   type="text"
                   placeholder="Your Full Name"
                   className="input input-bordered w-full"
                 />
-                {errors?.name && <p className="text-red-400">{errors?.name?.message}</p> }
+                {errors?.name && (
+                  <p className="text-red-400">{errors?.name?.message}</p>
+                )}
               </div>
               <div className="form-control w-full">
                 <label className="label">
@@ -76,27 +78,64 @@ const SignUp = () => {
                 </label>
                 <input
                   {...register("email", {
-                    required: `your email address is required`
+                    required: `your email address is required`,
                   })}
                   type="email"
                   placeholder="Your Email"
                   className="input input-bordered w-full"
                 />
-                 {errors?.email && <p className="text-red-400">{errors.email?.message}</p>}
+                {errors?.email && (
+                  <p className="text-red-400">{errors.email?.message}</p>
+                )}
               </div>
+
+              <div className="form-control">
+                <p>Please select your role?</p>
+                <div className="flex justify-around">
+                  <div>
+                    <label htmlFor="buyer">
+                      Buyer{" "}
+                      <input
+                        defaultChecked
+                        {...register("role")}
+                        type="radio"
+                        id="buyer"
+                        name="role"
+                        value="buyer"
+                      />
+                    </label>
+                  </div>
+
+                  <div>
+                    <label htmlFor="seller">
+                      Seller{" "}
+                      <input
+                        {...register("role")}
+                        type="radio"
+                        id="seller"
+                        name="role"
+                        value="seller"
+                      />
+                    </label>
+                  </div>
+                </div>
+              </div>
+
               <div className="form-control w-full">
                 <label className="label">
                   <span className="label-text">Your Password</span>
                 </label>
                 <input
                   {...register("password", {
-                    required: `your password is required`
+                    required: `your password is required`,
                   })}
                   type="password"
                   placeholder="Your Password"
                   className="input input-bordered w-full"
                 />
-                {errors.password && <p className="text-red-400">{errors?.password?.message}</p> }
+                {errors.password && (
+                  <p className="text-red-400">{errors?.password?.message}</p>
+                )}
                 <label className="label">
                   <span className="label-text">forgot password?</span>
                 </label>
@@ -114,7 +153,10 @@ const SignUp = () => {
               </div>
             </form>
             <div className="divider">OR</div>
-            <button onClick={handleGoogleSignIn} className="btn btn-primary w-full">
+            <button
+              onClick={handleGoogleSignIn}
+              className="btn btn-primary w-full"
+            >
               continue with google
             </button>
           </div>
