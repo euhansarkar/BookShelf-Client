@@ -1,46 +1,51 @@
-import React from 'react';
+import { useQuery } from "@tanstack/react-query";
+import React, { useContext } from "react";
+import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
+import SingleOrder from "../DashBoard/SingleOrde/SingleOrder";
 
 const MyOrders = () => {
-    return (
-        <div>
-            <h2>my orders</h2>
-            <div className="overflow-x-auto">
-  <table className="table table-zebra w-full">
-    <thead>
-      <tr>
-        <th>No.</th>
-        <th>Name</th>
-        <th>Job</th>
-        <th>Favorite Color</th>
-      </tr>
-    </thead>
-    <tbody>
+  const {
+    user: { email },
+  } = useContext(AuthContext);
 
-      <tr>
-        <th>1</th>
-        <td>Cy Ganderton</td>
-        <td>Quality Control Specialist</td>
-        <td>Blue</td>
-      </tr>
+  const { data: orders, isLoading } = useQuery({
+    queryKey: [`orders`, email],
+    queryFn: async () => {
+      const res = await fetch(`http://localhost:5000/orders?email=${email}`);
+      const data = await res.json();
+      return data;
+    },
+  });
 
-      <tr>
-        <th>2</th>
-        <td>Hart Hagerty</td>
-        <td>Desktop Support Technician</td>
-        <td>Purple</td>
-      </tr>
+  if (isLoading) {
+    return <p>loading</p>;
+  }
 
-      <tr>
-        <th>3</th>
-        <td>Brice Swyre</td>
-        <td>Tax Accountant</td>
-        <td>Red</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+
+  return (
+    <div>
+      <h2 className="my-5 font-semibold text-4xl text-center">my orders</h2>
+      <div className="overflow-x-auto">
+        <div className="overflow-x-auto w-full">
+          <table className="table w-full">
+            <thead>
+              <tr>
+                <th>No.</th>
+                <th>Product Name</th>
+                <th>Product Price</th>
+                <th>Product Quantity</th>
+                <th>Payment Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {orders.map((order) => <SingleOrder order={order} key={order._id}></SingleOrder>)}
+            </tbody>
+          </table>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default MyOrders;
