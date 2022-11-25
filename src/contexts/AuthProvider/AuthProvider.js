@@ -18,30 +18,35 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   const createUser = (email, password) => {
+    setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
   const logIn = (email, password) => {
+    setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 
   const updateUser = (userInfo) => {
+    setLoading(true);
     return updateProfile(auth.currentUser, userInfo);
   };
 
   const logOut = () => {
+    setLoading(true);
     return signOut(auth);
   };
 
 
   const signInWithGoogle = (provider) => {
+    setLoading(true);
     return signInWithPopup(auth, provider);
   }
 
   useEffect(() => {
     const ubsubscribe = onAuthStateChanged(auth, currentUser => {
-        console.log(currentUser);
         setUser(currentUser);
+        setLoading(false);
     })
     return () => {
         ubsubscribe();

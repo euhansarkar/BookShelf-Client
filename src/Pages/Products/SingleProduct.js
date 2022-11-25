@@ -1,39 +1,54 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import ProductBookingModal from "./ProductBookingModal/ProductBookingModal";
 
-const SingleProduct = () => {
+const SingleProduct = ({ book }) => {
+  const {
+    category_name,
+    description,
+    img,
+    location,
+    originalPrice,
+    posted,
+    price,
+    sellerName,
+    title,
+    yearsOfUse,
+    resalePrice,
+    _id
+  } = book;
+  console.log(book);
+
+
+
   return (
     <div className="flex flex-col max-w-lg p-6 space-y-6 overflow-hidden rounded-lg shadow-md dark:bg-gray-900 dark:text-gray-100">
-      <div className="flex space-x-4">
-        <img
-          alt=""
-          src="https://source.unsplash.com/100x100/?portrait"
-          className="object-cover w-12 h-12 rounded-full shadow dark:bg-gray-500"
-        />
+      <div className="flex justify-between space-x-4">
         <div className="flex flex-col space-y-1">
           <Link
             rel="noopener noreferrer"
             href="#"
             className="text-sm font-semibold"
           >
-            Leroy Jenkins
+          {sellerName}
           </Link>
-          <span className="text-xs dark:text-gray-400">4 hours ago</span>
+          <span className="text-xs dark:text-gray-400">{posted}</span>
+        </div>
+        <div>
+          
         </div>
       </div>
       <div>
         <img
-          src="https://source.unsplash.com/random/100x100/?5"
+          src={img}
           alt=""
-          className="object-cover w-full mb-4 h-60 sm:h-96 dark:bg-gray-500"
+          className="object-cover w-full mb-4 h-60 md:h-52 sm:h-96 dark:bg-gray-500"
         />
         <h2 className="mb-1 text-xl font-semibold">
-          Nam cu platonem posidonium sanctus debitis te
+          {title.length > 50 ? title.slice(0, 50) : title}
         </h2>
         <p className="text-sm dark:text-gray-400">
-          Eu qualisque aliquando mel, id lorem detraxit nec, ad elit minimum
-          pri. Illum ipsum detracto ne cum. Mundi nemore te ius, vim ad illud
-          atqui apeirian...
+          {description.length > 100 ? description.slice(0, 100).concat(`......`) : description}
         </p>
       </div>
       <div className="flex flex-wrap justify-between">
@@ -43,13 +58,8 @@ const SingleProduct = () => {
             type="button"
             className="p-2 text-center"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 512 512"
-              className="w-4 h-4 fill-current dark:text-violet-400"
-            >
-              <path d="M404,344a75.9,75.9,0,0,0-60.208,29.7L179.869,280.664a75.693,75.693,0,0,0,0-49.328L343.792,138.3a75.937,75.937,0,1,0-13.776-28.976L163.3,203.946a76,76,0,1,0,0,104.108l166.717,94.623A75.991,75.991,0,1,0,404,344Zm0-296a44,44,0,1,1-44,44A44.049,44.049,0,0,1,404,48ZM108,300a44,44,0,1,1,44-44A44.049,44.049,0,0,1,108,300ZM404,464a44,44,0,1,1,44-44A44.049,44.049,0,0,1,404,464Z"></path>
-            </svg>
+            Original Price: <strong>${originalPrice}</strong> <br />
+            Resale Price: <strong>${price}</strong>
           </button>
           <button aria-label="Bookmark this post" type="button" className="p-2">
             <svg
@@ -62,11 +72,11 @@ const SingleProduct = () => {
           </button>
         </div>
         <div className="flex space-x-2 text-sm dark:text-gray-400">
-        <button type="button" className="btn btn-primary">
-            book now
-          </button>
+          <label className="btn btn-primary" htmlFor="productBookingModal">open modal</label>
+
         </div>
       </div>
+      <ProductBookingModal></ProductBookingModal>
     </div>
   );
 };

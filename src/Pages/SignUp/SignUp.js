@@ -15,17 +15,24 @@ const SignUp = () => {
 
   const googleProvider = new GoogleAuthProvider();
 
-  const { createUser, signInWithGoogle } = useContext(AuthContext);
+  const { createUser, signInWithGoogle, updateUser } = useContext(AuthContext);
 
   const handleSignUp = (data) => {
     console.log(data);
-    const { email, password } = data;
+    const { email, password, name } = data;
 
     createUser(email, password)
       .then((result) => {
         const user = result.user;
         console.log(user);
         setSignUpError(null);
+
+        const userInfo = {
+          displayName: name,
+        }
+        updateUser(userInfo)
+        .then(res => {})
+        .catch(err => console.error(err));
       })
       .then((err) => {
         console.log(err);
@@ -46,13 +53,16 @@ const SignUp = () => {
       });
   };
 
+
+
+
   return (
     <div className="hero min-h-screen bg-base-200">
       <div className="hero-content flex  flex-col lg:flex-row-reverse gap-6">
         <div className="text-center w-1/2 hidden lg:block ml-32 lg:text-left">
           <img src={login} className="w-96" alt="" />
         </div>
-        <div className="card w-full md:w-[400px] md:h-[600px] shadow-2xl">
+        <div className="card w-full md:w-[600px] md:h-[700px] shadow-2xl">
           <div className="card-body">
             <h2 className="text-4xl font-bold text-center">Sign Up</h2>
             <form onSubmit={handleSubmit(handleSignUp)}>
@@ -91,34 +101,21 @@ const SignUp = () => {
 
               <div className="form-control">
                 <p>Please select your role?</p>
-                <div className="flex justify-around">
+                  <div className="flex justify-around">
                   <div>
-                    <label htmlFor="buyer">
-                      Buyer{" "}
-                      <input
-                        defaultChecked
-                        {...register("role")}
-                        type="radio"
-                        id="buyer"
-                        name="role"
-                        value="buyer"
-                      />
-                    </label>
-                  </div>
+               <label htmlFor="buyer">
+                  Buyer{" "}
+                  <input defaultChecked {...register("role")} type="radio" id="buyer" name="role" value="buyer" />
+                </label>
+               </div>
 
-                  <div>
-                    <label htmlFor="seller">
-                      Seller{" "}
-                      <input
-                        {...register("role")}
-                        type="radio"
-                        id="seller"
-                        name="role"
-                        value="seller"
-                      />
-                    </label>
-                  </div>
+                <div>
+                <label htmlFor="seller">
+                  Seller{" "}
+                  <input  {...register("role")} type="radio" id="seller" name="role" value="seller" />
+                </label>
                 </div>
+                  </div>
               </div>
 
               <div className="form-control w-full">
