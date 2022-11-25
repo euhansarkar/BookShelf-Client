@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import ProductBookingModal from "./ProductBookingModal/ProductBookingModal";
 
-const SingleProduct = ({ book }) => {
+const SingleProduct = ({ book, setChooseProduct }) => {
   const {
     category_name,
     description,
@@ -72,11 +72,10 @@ const SingleProduct = ({ book }) => {
           </button>
         </div>
         <div className="flex space-x-2 text-sm dark:text-gray-400">
-          <label className="btn btn-primary" htmlFor="productBookingModal">open modal</label>
+          <label onClick={() => setChooseProduct(book)} className="btn btn-primary" htmlFor="productBookingModal">book now</label>
 
         </div>
       </div>
-      <ProductBookingModal></ProductBookingModal>
     </div>
   );
 };
