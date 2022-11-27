@@ -1,18 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
-import { primary } from "daisyui/src/colors";
 import React from "react";
 import { Link } from "react-router-dom";
 
-const SingleOrder = ({ order, index }) => {
+const SingleOrder = ({ order, index, setDeleteOrder }) => {
   const { _id, product_id } = order;
 
   const { data: product = [] } = useQuery({
     queryKey: [`order`, product_id],
-    queryFn: async() => {
+    queryFn: async () => {
       const res = await fetch(`http://localhost:5000/products/${product_id}`);
       const data = await res.json();
       return data;
-    }
+    },
   });
 
   const { title, resalePrice, isPaid } = product;
@@ -31,7 +30,13 @@ const SingleOrder = ({ order, index }) => {
         )}
       </td>
       <td>
-        <button className="btn btn-error btn-xs">delete</button>
+        <label
+          onClick={() => setDeleteOrder(order)}
+          htmlFor="ConfirmationModal"
+          className="btn btn-xs btn-error"
+        >
+          delete
+        </label>
       </td>
     </tr>
   );
