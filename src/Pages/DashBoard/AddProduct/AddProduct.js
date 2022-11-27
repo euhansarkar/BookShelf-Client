@@ -101,7 +101,7 @@ const AddProduct = () => {
             type="text"
           >
             {categoryName.map((name) => (
-              <option selected Value={name?.category_id} key={name?._id}>
+              <option selected value={name?.category_id} key={name?._id}>
                 {name?.category_Name}
               </option>
             ))}
