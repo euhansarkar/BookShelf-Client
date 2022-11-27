@@ -1,56 +1,40 @@
-import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import { useQuery } from "@tanstack/react-query";
+import { primary } from "daisyui/src/colors";
+import React from "react";
+import { Link } from "react-router-dom";
 
-const SingleOrder = ({order: {product_id}}) => {
+const SingleOrder = ({ order, index }) => {
+  const { _id, product_id } = order;
 
-    const {data: order = []} = useQuery({
-        queryKey: [`order`, product_id],
-        queryFn: async() => {
-            const res = await fetch(`http://localhost:5000/products/${product_id}`);
-            const data = await res.json();
-            return data;
-        }
-    })
+  const { data: product = [] } = useQuery({
+    queryKey: [`order`, product_id],
+    queryFn: async() => {
+      const res = await fetch(`http://localhost:5000/products/${product_id}`);
+      const data = await res.json();
+      return data;
+    }
+  });
 
-    const {title} = order;
+  const { title, resalePrice, isPaid } = product;
 
-
-    return (
-           <tr>
-                  <th>
-                    <label>
-                      <input type="checkbox" className="checkbox" />
-                    </label>
-                  </th>
-                  <td>
-                    <div className="flex items-center space-x-3">
-                      <div className="avatar">
-                        <div className="mask mask-squircle w-12 h-12">
-                          <img
-                            src="/tailwind-css-component-profile-3@56w.png"
-                            alt="Avatar Tailwind CSS Component"
-                          />
-                        </div>
-                      </div>
-                      <div>
-                        <div className="font-bold">{title}</div>
-                        <div className="text-sm opacity-50">China</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    Carroll Group
-                    <br />
-                    <span className="badge badge-ghost badge-sm">
-                      Tax Accountant
-                    </span>
-                  </td>
-                  <td>Red</td>
-                  <th>
-                    <button className="btn btn-ghost btn-xs">details</button>
-                  </th>
-                </tr> 
-    );
+  return (
+    <tr>
+      <th>{index + 1}</th>
+      <td>{title}</td>
+      <td>{resalePrice}</td>
+      <td>{1}</td>
+      <td>
+        {resalePrice && !isPaid && (
+          <Link to={`/dashboard/payment/${_id}`}>
+            <button className="btn btn-primary btn-sm">pay</button>
+          </Link>
+        )}
+      </td>
+      <td>
+        <button className="btn btn-error btn-xs">delete</button>
+      </td>
+    </tr>
+  );
 };
 
 export default SingleOrder;

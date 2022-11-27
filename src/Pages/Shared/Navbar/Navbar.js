@@ -27,7 +27,7 @@ const Navbar = () => {
       </li>
       {user?.email ? (
         <li>
-          <button onClick={logOut}>logout</button>
+          <button onClick={handleLogOut}>logout</button>
         </li>
       ) : (
         <li>
@@ -64,7 +64,7 @@ const Navbar = () => {
             {menuItems}
           </ul>
         </div>
-        <Link className="btn btn-ghost normal-case text-xl">BookSelf</Link>
+        <Link className="btn btn-ghost normal-case text-xl">bookshelf</Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal p-0">{menuItems}</ul>

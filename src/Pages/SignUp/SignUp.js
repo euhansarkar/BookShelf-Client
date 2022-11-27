@@ -1,9 +1,11 @@
 import { GoogleAuthProvider } from "firebase/auth";
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import login from "../../assets/images/signup/signup.svg";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
+import toast from "react-hot-toast";
+import useToken from "../../hooks/useToken";
 
 const SignUp = () => {
   const [signUpError, setSignUpError] = useState(null);
@@ -12,31 +14,39 @@ const SignUp = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-
+  const [createdUserEmail, setCreatedUserEmail] = useState(``);
+  const [token] = useToken(createdUserEmail);
+  const navigate = useNavigate();
   const googleProvider = new GoogleAuthProvider();
 
   const { createUser, signInWithGoogle, updateUser } = useContext(AuthContext);
 
+
+  if(token){
+    navigate(`/`);
+  }
+
+
   const handleSignUp = (data) => {
     console.log(data);
-    const { email, password, name } = data;
+    const { email, name, role, password } = data;
 
     createUser(email, password)
       .then((result) => {
         const user = result.user;
-        console.log(user);
         setSignUpError(null);
 
         const userInfo = {
           displayName: name,
-        }
+        };
         updateUser(userInfo)
-        .then(res => {})
-        .catch(err => console.error(err));
+          .then((res) => {
+            saveUserToDataBase(name, email, role);
+          })
+          .catch((err) => console.error(err));
       })
       .then((err) => {
-        console.log(err);
-        setSignUpError(err.message);
+        setSignUpError(err?.message);
       });
   };
 
@@ -53,8 +63,24 @@ const SignUp = () => {
       });
   };
 
-
-
+  const saveUserToDataBase = (name, email, role) => {
+    const user = { name, email, role };
+    fetch(`http://localhost:5000/users`, {
+      method: `POST`,
+      headers: {
+        "Content-Type": `application/json`,
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.acknowledged) {
+          setCreatedUserEmail(email);
+          toast.success(`user created successfully`);
+        }
+      });
+  };
 
   return (
     <div className="hero min-h-screen bg-base-200">
@@ -101,21 +127,34 @@ const SignUp = () => {
 
               <div className="form-control">
                 <p>Please select your role?</p>
-                  <div className="flex justify-around">
+                <div className="flex justify-around">
                   <div>
-               <label htmlFor="buyer">
-                  Buyer{" "}
-                  <input defaultChecked {...register("role")} type="radio" id="buyer" name="role" value="buyer" />
-                </label>
-               </div>
-
-                <div>
-                <label htmlFor="seller">
-                  Seller{" "}
-                  <input  {...register("role")} type="radio" id="seller" name="role" value="seller" />
-                </label>
-                </div>
+                    <label htmlFor="buyer">
+                      Buyer{" "}
+                      <input
+                        defaultChecked
+                        {...register("role")}
+                        type="radio"
+                        id="buyer"
+                        name="role"
+                        value="buyer"
+                      />
+                    </label>
                   </div>
+
+                  <div>
+                    <label htmlFor="seller">
+                      Seller{" "}
+                      <input
+                        {...register("role")}
+                        type="radio"
+                        id="seller"
+                        name="role"
+                        value="seller"
+                      />
+                    </label>
+                  </div>
+                </div>
               </div>
 
               <div className="form-control w-full">

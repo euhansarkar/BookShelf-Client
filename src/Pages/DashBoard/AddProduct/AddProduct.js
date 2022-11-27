@@ -1,0 +1,297 @@
+import { useQuery } from "@tanstack/react-query";
+import React, { useContext, useState } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
+
+const AddProduct = () => {
+  const { user } = useContext(AuthContext);
+  const imgUploadKey = process.env.REACT_APP_IMGBB_KEY;
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const navigate = useNavigate();
+
+  
+
+  const handleAddProduct = (data) => {
+    const {category_name, title, location, originalPrice, resalePrice, yearsOfUse, name, seller_name, seller_email, description, img } = data;
+    const image = data.img[0];
+    const formData = new FormData();
+    formData.append(`image`, image);
+    const url = `https://api.imgbb.com/1/upload?&key=${imgUploadKey}`;
+    fetch(url, {
+      method: `POST`,
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((imgData) => {
+        if (imgData.success) {
+          console.log(imgData.data.url);
+          const uploadedImg = imgData.data.url;
+
+          const newProduct = {
+            category_name,
+            title,
+            location,
+            originalPrice: parseFloat(originalPrice),
+            resalePrice: parseFloat(resalePrice),
+            yearsOfUse,
+            posted: new Date(),
+            seller_name,
+            seller_email,
+            description,
+            img: uploadedImg,
+            isAdvertise: false,
+            isPurchased: false,
+          }
+
+          fetch(`http://localhost:5000/products`, {
+            method: `POST`,
+            headers: {
+              "Content-Type": `application/json`,
+            },
+            body: JSON.stringify(newProduct)
+          })
+          .then(res => res.json())
+          .then(productsData => {
+            if(productsData.acknowledged){
+              toast.success(`new product uploaded successfully`);
+              navigate(`/dashboard/myproducts`)
+            }
+          })
+
+          fetch(``)
+        }
+      });
+  };
+
+  const { data: categoryName, isLoading } = useQuery({
+    queryKey: [`category`],
+    queryFn: async () => {
+      const res = await fetch(`http://localhost:5000/categories`);
+      const data = await res.json();
+      return data;
+    },
+  });
+
+  if (isLoading) {
+    return <p>loading</p>;
+  }
+
+  return (
+    <div>
+      <h2 className="text-5xl font-bold">this is add product page</h2>
+      <form
+        className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mx-6 space-x-3 mt-8"
+        onSubmit={handleSubmit(handleAddProduct)}
+      >
+        <div className="form-control w-full">
+          <label className="label">
+            <span className="label-text">select book category:</span>
+          </label>
+          <select
+            {...register("category_name", {
+              required: `book name is required`,
+            })}
+            className="select select-bordered w-full max-w-xs"
+            type="text"
+          >
+            {categoryName.map((name) => (
+              <option selected Value={name?.category_id} key={name?._id}>
+                {name?.category_Name}
+              </option>
+            ))}
+          </select>
+          <input />
+          {errors?.category_name && (
+            <p className="text-red-400">{errors?.category_name?.message}</p>
+          )}
+        </div>
+
+        <div className="form-control w-full">
+          <label className="label">
+            <span className="label-text">Book Name</span>
+          </label>
+          <input
+            {...register("title", {
+              required: `book name is required`,
+            })}
+            type="text"
+            placeholder="Book Name"
+            className="input input-bordered w-full"
+          />
+          {errors?.title && (
+            <p className="text-red-400">{errors?.title?.message}</p>
+          )}
+        </div>
+
+        <div className="form-control w-full">
+          <label className="label">
+            <span className="label-text">Your Location</span>
+          </label>
+          <input
+            {...register("location", {
+              required: `your location is required`,
+            })}
+            type="text"
+            placeholder="Your Location"
+            className="input input-bordered w-full"
+          />
+          {errors?.location && (
+            <p className="text-red-400">{errors?.location?.message}</p>
+          )}
+        </div>
+
+        <div className="form-control w-full">
+          <label className="label">
+            <span className="label-text">Original Price</span>
+          </label>
+          <input
+            {...register("originalPrice", {
+              required: `your name is required`,
+            })}
+            type="text"
+            placeholder="Original Price"
+            className="input input-bordered w-full"
+          />
+          {errors?.originalPrice && (
+            <p className="text-red-400">{errors?.originalPrice?.message}</p>
+          )}
+        </div>
+        <div className="form-control w-full">
+          <label className="label">
+            <span className="label-text">Resale Price</span>
+          </label>
+          <input
+            {...register("resalePrice", {
+              required: `Resale Price`,
+            })}
+            type="text"
+            placeholder="Resale Price"
+            className="input input-bordered w-full"
+          />
+          {errors?.resalePrice && (
+            <p className="text-red-400">{errors?.resalePrice?.message}</p>
+          )}
+        </div>
+
+        <div className="form-control w-full">
+          <label className="label">
+            <span className="label-text">Years Of Use</span>
+          </label>
+          <input
+            {...register("yearsOfUse", {
+              required: `Years of use required`,
+            })}
+            type="text"
+            placeholder="Year Of Use"
+            className="input input-bordered w-full"
+          />
+          {errors?.yearsOfUse && (
+            <p className="text-red-400">{errors?.yearsOfUse?.message}</p>
+          )}
+        </div>
+
+        <div className="form-control w-full">
+          <label className="label">
+            <span className="label-text">Your Name</span>
+          </label>
+          <input
+            {...register("name", {
+              required: `your name is required`,
+            })}
+            type="text"
+            placeholder="Your Full Name"
+            className="input input-bordered w-full"
+          />
+          {errors?.name && (
+            <p className="text-red-400">{errors?.name?.message}</p>
+          )}
+        </div>
+        <div className="form-control w-full">
+          <label className="label">
+            <span className="label-text">Your Name</span>
+          </label>
+          <input
+            {...register("seller_name", {
+              required: `your name is required`,
+            })}
+            type="text"
+            placeholder="Your Full Name"
+            className="input input-bordered w-full"
+          />
+          {errors?.seller_name && (
+            <p className="text-red-400">{errors?.seller_name?.message}</p>
+          )}
+        </div>
+
+        <div className="form-control w-full">
+          <label className="label">
+            <span className="label-text">Your Email</span>
+          </label>
+          <input
+            {...register("seller_email", {
+              required: `your email address is required`,
+            })}
+            type="email"
+            placeholder="Your Email"
+            className="input input-bordered w-full"
+          />
+          {errors?.seller_email && (
+            <p className="text-red-400">{errors.seller_email?.message}</p>
+          )}
+        </div>
+
+        <div className="form-control w-full grid-flow-[2]">
+          <label className="label">
+            <span className="label-text">Product Description</span>
+          </label>
+          <textarea
+            {...register("description", {
+              required: `Product Description is required`,
+            })}
+            type="text"
+            placeholder="write something about your product"
+            className="input input-bordered w-full"
+          />
+          {errors?.description && (
+            <p className="text-red-400">{errors.description?.message}</p>
+          )}
+        </div>
+
+        <div className="form-control w-full grid-flow-[2]">
+          <label className="label">
+            <span className="label-text">Product Image</span>
+          </label>
+          <input
+            {...register("img", {
+              required: `product image is required`,
+            })}
+            type="file"
+            placeholder="write something about your product"
+            className="input input-bordered w-full"
+          />
+          {errors?.img && <p className="text-red-400">{errors.img?.message}</p>}
+        </div>
+
+        <div className="items-center flex flex-col justify-center">
+          <input
+            type="submit"
+            value="Sign Up"
+            className="btn btn-primary w-full "
+          />
+
+          <p>
+            already have an account? <Link className="/login">login</Link>
+          </p>
+        </div>
+      </form>
+    </div>
+  );
+};
+
+export default AddProduct;

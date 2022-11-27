@@ -33,6 +33,7 @@ const ProductBookingModal = ({ chooseProduct, setChooseProduct }) => {
         buyer_location: location,
         order_date: new Date(),
         product_id: _id,
+        isPaid: false,
     }
 
     fetch(`http://localhost:5000/orders`, {

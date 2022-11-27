@@ -2,20 +2,30 @@ import { async } from "@firebase/util";
 import { createBrowserRouter } from "react-router-dom";
 import DashBoardLayout from "../../Layouts/DashBoardLayout";
 import Main from "../../Layouts/Main";
+import About from "../../Pages/About/About";
 import Blogs from "../../Pages/Blogs/Blogs";
+import AddProduct from "../../Pages/DashBoard/AddProduct/AddProduct";
+import AllBuyers from "../../Pages/DashBoard/AllBuyers/AllBuyers";
+import AllSellers from "../../Pages/DashBoard/AllSellers/AllSellers";
+import AllUsers from "../../Pages/DashBoard/AllUsers/AllUsers";
 import DashBoard from "../../Pages/DashBoard/DashBoard/DashBoard";
+import MyProducts from "../../Pages/DashBoard/MyProducts/MyProducts";
+import Payment from "../../Pages/DashBoard/Payment/Payment";
 import Home from "../../Pages/Home/Home/Home";
 import LogIn from "../../Pages/LogIn/LogIn";
 import MyOrders from "../../Pages/MyOrders/MyOrders";
 import NotFound from "../../Pages/NotFound/NotFound";
 import Products from "../../Pages/Products/Products";
+import DisplayError from "../../Pages/Shared/DisplayError/DisplayError";
 import SignUp from "../../Pages/SignUp/SignUp";
+import AdminRoutes from "../AdminRoutes/AdminRoutes";
 import PrivateRoutes from "../PrivateRoutes/PrivateRoutes";
 
 const Routes = createBrowserRouter([
   {
     path: `/`,
     element: <Main></Main>,
+    errorElement: <DisplayError></DisplayError>,
     children: [
       {
         path: `/`,
@@ -34,22 +44,80 @@ const Routes = createBrowserRouter([
         element: <Blogs></Blogs>,
       },
       {
+        path: `/about`,
+        element: <About></About>,
+      },
+      {
         path: `/category/:id`,
         element: <Products></Products>,
-        loader: ({params}) => fetch(`http://localhost:5000/category/${params.id}`)
-      }
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/category/${params.id}`),
+      },
     ],
   },
   {
     path: `/dashboard`,
-    element: <PrivateRoutes><DashBoardLayout></DashBoardLayout></PrivateRoutes>,
+    element: (
+      <PrivateRoutes>
+        <DashBoardLayout></DashBoardLayout>
+      </PrivateRoutes>
+    ),
     children: [
       {
         path: `/dashboard`,
-        element: <MyOrders></MyOrders>
+        element: <MyOrders></MyOrders>,
+      },
+      {
+        path: `/dashboard/allusers`,
+        element: (
+          <AdminRoutes>
+            <AllUsers></AllUsers>
+          </AdminRoutes>
+        ),
+      },
+      {
+        path: `/dashboard/allbuyers`,
+        element: (
+          <AdminRoutes>
+            <AllBuyers></AllBuyers>
+          </AdminRoutes>
+        ),
+      },
+      {
+        path: `/dashboard/allsellers`,
+        element: (
+          <AdminRoutes>
+            <AllSellers></AllSellers>
+          </AdminRoutes>
+        ),
+      },
+      {
+        path: `/dashboard/addaproduct`,
+        element: (
+          <AdminRoutes>
+            <AddProduct></AddProduct>
+          </AdminRoutes>
+        ),
+      },
+      {
+        path: `/dashboard/myproducts`,
+        element: (
+          <AdminRoutes>
+            <MyProducts></MyProducts>
+          </AdminRoutes>
+        ),
+      },
+      {
+        path: `/dashboard/payment/:id`,
+        element: <Payment></Payment>,
+        loader: ({params}) => fetch(`http://localhost:5000/payorder/${params.id}`)
       }
-    ]
-  }
+    ],
+  },
+  {
+    path: `/*`,
+    element: <NotFound></NotFound>,
+  },
 ]);
 
 export default Routes;

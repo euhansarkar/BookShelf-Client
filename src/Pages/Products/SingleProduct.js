@@ -17,7 +17,6 @@ const SingleProduct = ({ book, setChooseProduct }) => {
     resalePrice,
     _id
   } = book;
-  console.log(book);
 
 
 
@@ -42,7 +41,7 @@ const SingleProduct = ({ book, setChooseProduct }) => {
         <img
           src={img}
           alt=""
-          className="object-cover w-full mb-4 h-60 md:h-52 sm:h-96 dark:bg-gray-500"
+          className="object-cover h-full w-full mb-4 sm:h-96 dark:bg-gray-500"
         />
         <h2 className="mb-1 text-xl font-semibold">
           {title.length > 50 ? title.slice(0, 50) : title}
