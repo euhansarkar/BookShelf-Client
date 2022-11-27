@@ -7,7 +7,7 @@ import ConfirmationModal from "../../Shared/ConfirmationModal/ConfirmationModal"
 const MyProducts = () => {
   const { user } = useContext(AuthContext);
   const [deletingProduct, setDeletingProduct] = useState(null);
-  const { data: products, isLoading, refetch } = useQuery({
+  const { data: products = [], refetch } = useQuery({
     queryKey: [`products`, user?.email],
     queryFn: async () => {
       const res = await fetch(
@@ -18,9 +18,6 @@ const MyProducts = () => {
     },
   });
 
-  if (isLoading) {
-    return <p>loading</p>;
-  }
 
   const closeModal = () => {
     setDeletingProduct(null);

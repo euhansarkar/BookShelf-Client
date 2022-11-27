@@ -27,13 +27,10 @@ const LogIn = () => {
 
   const handleLogIn = (data) => {
     const { email, password } = data;
-    console.log(data);
     logIn(email, password)
       .then((result) => {
         const user = result.user;
-        console.log(user);
         setLogInError(null);
-        navigate(from, navigate({replace: true}))
         setLogInUserEmail(email);
       })
       .catch((err) => {

@@ -70,48 +70,49 @@ const Routes = createBrowserRouter([
       {
         path: `/dashboard/allusers`,
         element: (
-          <AdminRoutes>
+          <PrivateRoutes>
             <AllUsers></AllUsers>
-          </AdminRoutes>
+          </PrivateRoutes>
         ),
       },
       {
         path: `/dashboard/allbuyers`,
         element: (
-          <AdminRoutes>
+          <PrivateRoutes>
             <AllBuyers></AllBuyers>
-          </AdminRoutes>
+          </PrivateRoutes>
         ),
       },
       {
         path: `/dashboard/allsellers`,
         element: (
-          <AdminRoutes>
+          <PrivateRoutes>
             <AllSellers></AllSellers>
-          </AdminRoutes>
+          </PrivateRoutes>
         ),
       },
       {
         path: `/dashboard/addaproduct`,
         element: (
-          <AdminRoutes>
+          <PrivateRoutes>
             <AddProduct></AddProduct>
-          </AdminRoutes>
+          </PrivateRoutes>
         ),
       },
       {
         path: `/dashboard/myproducts`,
         element: (
-          <AdminRoutes>
+          <PrivateRoutes>
             <MyProducts></MyProducts>
-          </AdminRoutes>
+          </PrivateRoutes>
         ),
       },
       {
         path: `/dashboard/payment/:id`,
         element: <Payment></Payment>,
-        loader: ({params}) => fetch(`http://localhost:5000/payorder/${params.id}`)
-      }
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/payorder/${params.id}`),
+      },
     ],
   },
   {
