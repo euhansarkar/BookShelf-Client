@@ -19,6 +19,7 @@ import Products from "../../Pages/Products/Products";
 import DisplayError from "../../Pages/Shared/DisplayError/DisplayError";
 import SignUp from "../../Pages/SignUp/SignUp";
 import AdminRoutes from "../AdminRoutes/AdminRoutes";
+import SellerRoutes from "../SellerRoutes/SellerRoutes";
 import PrivateRoutes from "../PrivateRoutes/PrivateRoutes";
 
 const Routes = createBrowserRouter([
@@ -70,41 +71,41 @@ const Routes = createBrowserRouter([
       {
         path: `/dashboard/allusers`,
         element: (
-          <PrivateRoutes>
+          <AdminRoutes>
             <AllUsers></AllUsers>
-          </PrivateRoutes>
+          </AdminRoutes>
         ),
       },
       {
         path: `/dashboard/allbuyers`,
         element: (
-          <PrivateRoutes>
+          <AdminRoutes>
             <AllBuyers></AllBuyers>
-          </PrivateRoutes>
+          </AdminRoutes>
         ),
       },
       {
         path: `/dashboard/allsellers`,
         element: (
-          <PrivateRoutes>
+          <AdminRoutes>
             <AllSellers></AllSellers>
-          </PrivateRoutes>
+          </AdminRoutes>
         ),
       },
       {
         path: `/dashboard/addaproduct`,
         element: (
-          <PrivateRoutes>
+          <SellerRoutes>
             <AddProduct></AddProduct>
-          </PrivateRoutes>
+          </SellerRoutes>
         ),
       },
       {
         path: `/dashboard/myproducts`,
         element: (
-          <PrivateRoutes>
+          <SellerRoutes>
             <MyProducts></MyProducts>
-          </PrivateRoutes>
+          </SellerRoutes>
         ),
       },
       {
