@@ -23,10 +23,12 @@ const SingleOrder = ({ order, index, setDeleteOrder }) => {
       <td>{resalePrice}</td>
       <td>{1}</td>
       <td>
-        {resalePrice && !isPaid && (
-          <Link to={`/dashboard/payment/${_id}`}>
-            <button className="btn btn-primary btn-sm">pay</button>
+        {order.paid ? (
+          <Link to={`/dashboard/payment/${order._id}`}>
+            <button className="btn btn-primary btn-sm">Pay</button>
           </Link>
+        ) : (
+          <span className="text-green-500 ml-4"><strong>Paid</strong></span>
         )}
       </td>
       <td>
