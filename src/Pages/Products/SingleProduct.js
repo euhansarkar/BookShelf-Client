@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import ProductBookingModal from "./ProductBookingModal/ProductBookingModal";
+import { FaHeart, FaTimesCircle } from "react-icons/fa";
+import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
+import toast from "react-hot-toast";
 
 const SingleProduct = ({ book, setChooseProduct }) => {
+  const { user } = useContext(AuthContext);
   const {
     category_name,
     description,
@@ -10,69 +13,133 @@ const SingleProduct = ({ book, setChooseProduct }) => {
     location,
     originalPrice,
     posted,
-    price,
-    sellerName,
+    seller_name,
     title,
     yearsOfUse,
     resalePrice,
-    _id
+    _id,
+    author,
+    isReported
   } = book;
 
+  const usedDays = (yearsOfUse) => {
+    const milliSeconds = new Date().getTime() - new Date(yearsOfUse).getTime();
+    return parseInt(milliSeconds / (24 * 60 * 60 * 1000));
+  };
 
+  const wishlist = {
+    productId: _id,
+    wishLister: user?.email,
+  };
+
+  const handleWishList = () => {
+    fetch(`http://localhost:5000/wishlists`, {
+      method: `POST`,
+      headers: {
+        "Content-Type": `application/json`,
+      },
+      body: JSON.stringify(wishlist),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.acknowledged) {
+          toast.success(`${title} book is successfully added to your wishlist`);
+        }
+      });
+  };
+
+
+  const handleReportToAdmin = id => {
+    fetch(`http://localhost:5000/products/${id}`, {
+      method: `PATCH`,
+      headers: {
+        "Content-Type": `application/json`,
+      },
+      body: JSON.stringify(isReported)
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
+      if(data.modifiedCount > 0){
+        toast.success(`your report has submitted successfully to the admin!`);
+      }
+    })
+  }
 
   return (
     <div className="flex flex-col max-w-lg p-6 space-y-6 overflow-hidden rounded-lg shadow-md dark:bg-gray-900 dark:text-gray-100">
-      <div className="flex justify-between space-x-4">
-        <div className="flex flex-col space-y-1">
-          <Link
-            rel="noopener noreferrer"
-            href="#"
-            className="text-sm font-semibold"
-          >
-          {sellerName}
-          </Link>
-          <span className="text-xs dark:text-gray-400">{posted}</span>
+      <div className="flex justify-between">
+        <div className="flex items-center justify-between">
+          <div className="flex flex-col space-y-1">
+            <Link
+              rel="noopener noreferrer"
+              href="#"
+              className="text-sm font-semibold"
+            >
+              Seller : {seller_name}
+            </Link>
+            <span className="text-xs dark:text-gray-400">
+              published date: {posted.slice(0, 10)}
+            </span>
+          </div>
+          <div className="flex flex-col pl-16">
+            <div className="badge badge-secondary">from {location}</div>
+            <span className="text-xs dark:text-gray-400">
+              book used {usedDays(yearsOfUse)} days
+            </span>
+          </div>
         </div>
-        <div>
-          
-        </div>
+        <div></div>
       </div>
       <div>
         <img
           src={img}
           alt=""
-          className="object-cover h-full w-full mb-4 sm:h-96 dark:bg-gray-500"
+          className="h-60 w-full mb-2 object-contain sm:h-60 dark:bg-gray-500"
         />
         <h2 className="mb-1 text-xl font-semibold">
           {title.length > 50 ? title.slice(0, 50) : title}
         </h2>
-        <p className="text-sm dark:text-gray-400">
-          {description.length > 100 ? description.slice(0, 100).concat(`......`) : description}
-        </p>
+        <p className="text-sm dark:text-gray-400">Author: {author}</p>
       </div>
       <div className="flex flex-wrap justify-between">
-        <div className="space-x-2">
+        <div>
           <button
             aria-label="Share this post"
             type="button"
-            className="p-2 text-center"
+            className="pb-3 text-start font-xl"
           >
             Original Price: <strong>${originalPrice}</strong> <br />
-            Resale Price: <strong>${price}</strong>
+            Resale Price: <strong>${resalePrice}</strong>
           </button>
-          <button aria-label="Bookmark this post" type="button" className="p-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 512 512"
-              className="w-4 h-4 fill-current dark:text-violet-400"
-            >
-              <path d="M424,496H388.75L256.008,381.19,123.467,496H88V16H424ZM120,48V456.667l135.992-117.8L392,456.5V48Z"></path>
-            </svg>
-          </button>
+          <button
+            aria-label="Bookmark this post"
+            type="button"
+            className="p-2"
+          ></button>
         </div>
         <div className="flex space-x-2 text-sm dark:text-gray-400">
-          <label onClick={() => setChooseProduct(book)} className="btn btn-primary" htmlFor="productBookingModal">book now</label>
-
+          <label
+            onClick={() => setChooseProduct(book)}
+            className="btn w-full btn-primary"
+            htmlFor="productBookingModal"
+          >
+            book now to buy
+          </label>
+        </div>
+        <div className="btn-group w-full btn-group-vertical lg:btn-group-horizontal">
+          <button
+            onClick={() => handleWishList(_id)}
+            className="btn ml-16 btn-primary"
+          >
+            <FaHeart className="text-error mx-1" />
+            add to wishlist
+          </button>
+          <button onClick={() => handleReportToAdmin(_id)} className="btn">
+            {" "}
+            <FaTimesCircle className="text-warning mx-1" /> report to admin
+          </button>
         </div>
       </div>
     </div>

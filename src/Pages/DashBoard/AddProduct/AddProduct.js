@@ -6,7 +6,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
 
 const AddProduct = () => {
-  const { user } = useContext(AuthContext);
+  const {
+    user: { displayName, email },
+  } = useContext(AuthContext);
   const imgUploadKey = process.env.REACT_APP_IMGBB_KEY;
   const {
     register,
@@ -15,11 +17,23 @@ const AddProduct = () => {
   } = useForm();
   const navigate = useNavigate();
 
-  
-
   const handleAddProduct = (data) => {
-    const {category_name, title, location, originalPrice, resalePrice, yearsOfUse, name, seller_name, seller_email, description, img } = data;
+    const {
+      category_name,
+      title,
+      location,
+      originalPrice,
+      resalePrice,
+      yearsOfUse,
+      author,
+      name,
+      seller_name,
+      seller_email,
+      description,
+      img,
+    } = data;
     const image = data.img[0];
+
     const formData = new FormData();
     formData.append(`image`, image);
     const url = `https://api.imgbb.com/1/upload?&key=${imgUploadKey}`;
@@ -36,6 +50,7 @@ const AddProduct = () => {
           const newProduct = {
             category_name,
             title,
+            author,
             location,
             originalPrice: parseFloat(originalPrice),
             resalePrice: parseFloat(resalePrice),
@@ -47,24 +62,23 @@ const AddProduct = () => {
             img: uploadedImg,
             isAdvertise: false,
             isPurchased: false,
-          }
+            isReported: false,
+          };
 
           fetch(`http://localhost:5000/products`, {
             method: `POST`,
             headers: {
               "Content-Type": `application/json`,
             },
-            body: JSON.stringify(newProduct)
+            body: JSON.stringify(newProduct),
           })
-          .then(res => res.json())
-          .then(productsData => {
-            if(productsData.acknowledged){
-              toast.success(`new product uploaded successfully`);
-              navigate(`/dashboard/myproducts`)
-            }
-          })
-
-          fetch(``)
+            .then((res) => res.json())
+            .then((productsData) => {
+              if (productsData.acknowledged) {
+                toast.success(`new product uploaded successfully`);
+                navigate(`/dashboard/myproducts`);
+              }
+            });
         }
       });
   };
@@ -131,6 +145,21 @@ const AddProduct = () => {
 
         <div className="form-control w-full">
           <label className="label">
+            <span className="label-text">Author Name</span>
+          </label>
+          <input
+            {...register("author")}
+            type="text"
+            placeholder="Your Full Name"
+            className="input input-bordered w-full"
+          />
+          {errors?.author && (
+            <p className="text-red-400">{errors?.author?.message}</p>
+          )}
+        </div>
+
+        <div className="form-control w-full">
+          <label className="label">
             <span className="label-text">Your Location</span>
           </label>
           <input
@@ -181,13 +210,13 @@ const AddProduct = () => {
 
         <div className="form-control w-full">
           <label className="label">
-            <span className="label-text">Years Of Use</span>
+            <span className="label-text">Your Original buying date</span>
           </label>
           <input
             {...register("yearsOfUse", {
               required: `Years of use required`,
             })}
-            type="text"
+            type="date"
             placeholder="Year Of Use"
             className="input input-bordered w-full"
           />
@@ -201,32 +230,12 @@ const AddProduct = () => {
             <span className="label-text">Your Name</span>
           </label>
           <input
-            {...register("name", {
-              required: `your name is required`,
-            })}
+            {...register("seller_name")}
             type="text"
-            placeholder="Your Full Name"
+            defaultValue={displayName}
+            disabled
             className="input input-bordered w-full"
           />
-          {errors?.name && (
-            <p className="text-red-400">{errors?.name?.message}</p>
-          )}
-        </div>
-        <div className="form-control w-full">
-          <label className="label">
-            <span className="label-text">Your Name</span>
-          </label>
-          <input
-            {...register("seller_name", {
-              required: `your name is required`,
-            })}
-            type="text"
-            placeholder="Your Full Name"
-            className="input input-bordered w-full"
-          />
-          {errors?.seller_name && (
-            <p className="text-red-400">{errors?.seller_name?.message}</p>
-          )}
         </div>
 
         <div className="form-control w-full">
@@ -234,16 +243,12 @@ const AddProduct = () => {
             <span className="label-text">Your Email</span>
           </label>
           <input
-            {...register("seller_email", {
-              required: `your email address is required`,
-            })}
+            {...register("seller_email")}
             type="email"
-            placeholder="Your Email"
+            defaultValue={email}
+            disabled
             className="input input-bordered w-full"
           />
-          {errors?.seller_email && (
-            <p className="text-red-400">{errors.seller_email?.message}</p>
-          )}
         </div>
 
         <div className="form-control w-full grid-flow-[2]">
@@ -278,16 +283,12 @@ const AddProduct = () => {
           {errors?.img && <p className="text-red-400">{errors.img?.message}</p>}
         </div>
 
-        <div className="items-center flex flex-col justify-center">
+        <div className="items-center mt-8 flex flex-col justify-center">
           <input
             type="submit"
-            value="Sign Up"
+            value="Add Product"
             className="btn btn-primary w-full "
           />
-
-          <p>
-            already have an account? <Link className="/login">login</Link>
-          </p>
         </div>
       </form>
     </div>

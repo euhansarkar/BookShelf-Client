@@ -8,7 +8,6 @@ import CheckOutForm from "./CheckOutForm";
 
 const stripePromise = loadStripe(process.env.REACT_APP_PK);
 
-console.log(stripePromise);
 const Payment = () => {
   const orderData = useLoaderData();
 

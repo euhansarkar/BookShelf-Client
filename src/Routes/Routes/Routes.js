@@ -21,6 +21,8 @@ import SignUp from "../../Pages/SignUp/SignUp";
 import AdminRoutes from "../AdminRoutes/AdminRoutes";
 import SellerRoutes from "../SellerRoutes/SellerRoutes";
 import PrivateRoutes from "../PrivateRoutes/PrivateRoutes";
+import WishLists from "../../Pages/DashBoard/WishList/WishLists";
+import ReportedProducts from "../../Pages/DashBoard/ReportedProducts/ReportedProducts";
 
 const Routes = createBrowserRouter([
   {
@@ -93,6 +95,14 @@ const Routes = createBrowserRouter([
         ),
       },
       {
+        path: `/dashboard/reportedproducts`,
+        element: (
+          <AdminRoutes>
+            <ReportedProducts></ReportedProducts>
+          </AdminRoutes>
+        ),
+      },
+      {
         path: `/dashboard/addaproduct`,
         element: (
           <SellerRoutes>
@@ -113,6 +123,10 @@ const Routes = createBrowserRouter([
         element: <Payment></Payment>,
         loader: ({ params }) =>
           fetch(`http://localhost:5000/payorder/${params.id}`),
+      },
+      {
+        path: `/dashboard/wishlists`,
+        element: <WishLists></WishLists>,
       },
     ],
   },

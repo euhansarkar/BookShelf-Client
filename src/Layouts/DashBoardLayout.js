@@ -33,6 +33,9 @@ const DashBoardLayout = () => {
                 <li>
                   <Link to={`/dashboard/allsellers`}>All Sellers</Link>
                 </li>
+                <li>
+                  <Link to={`/dashboard/reportedproducts`}>Reported Products</Link>
+                </li>
               </>
             )}
             {isSeller && (
@@ -50,6 +53,9 @@ const DashBoardLayout = () => {
               <>
                 <li>
                   <Link to={`/dashboard`}>my orders</Link>
+                </li>
+                <li>
+                  <Link to={`/dashboard/wishlists`}>my wishlists</Link>
                 </li>
               </>
             )}
