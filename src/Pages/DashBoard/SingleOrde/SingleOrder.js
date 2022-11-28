@@ -3,7 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const SingleOrder = ({ order, index, setDeleteOrder }) => {
-  const { _id, product_id } = order;
+  const { _id, product_id, isPaid } = order;
 
   const { data: product = [] } = useQuery({
     queryKey: [`order`, product_id],
@@ -14,7 +14,7 @@ const SingleOrder = ({ order, index, setDeleteOrder }) => {
     },
   });
 
-  const { title, resalePrice, isPaid } = product;
+  const { title, resalePrice,} = product;
 
   return (
     <tr>
