@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
 import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
+import WishListItem from "./WishListItem";
 
 const WishLists = () => {
   const {
@@ -15,7 +16,7 @@ const WishLists = () => {
     queryKey: [`wishlists`, email],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/wishlists?email=${email}`,
+        `https://products-resale-server-euhansarkar.vercel.app/wishlists?email=${email}`,
         {
           headers: {
             authorization: `bearer ${localStorage.getItem(`accessToken`)}`,
@@ -26,27 +27,27 @@ const WishLists = () => {
       return data;
     },
   });
-  
 
-  if(isLoading){
-    return `loading`
+  if (isLoading) {
+    return `loading`;
   }
-  console.log(wishlists);
 
   return (
     <div>
       <h2 className="text-4xl my-6 text-center font-bold">your wishlists</h2>
       <div className="overflow-x-auto">
-        <table className="table table-zebra w-full">
+        <table className="table w-full">
           <thead>
             <tr>
-              <th></th>
-              <th>Name</th>
-              <th>Job</th>
-              <th>Favorite Color</th>
+              <th>No</th>
+              <th>Book Name</th>
+              <th>location</th>
+              <th>action</th>
             </tr>
           </thead>
-          <tbody></tbody>
+          <tbody>
+            {wishlists.map((wish, index) => <WishListItem wish={wish} index={index}></WishListItem>)}
+          </tbody>
         </table>
       </div>
     </div>

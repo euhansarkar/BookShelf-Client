@@ -15,7 +15,7 @@ const Payment = () => {
     queryKey: [`order`, orderData?.product_id],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/products/${orderData?.product_id}`
+        `https://products-resale-server-euhansarkar.vercel.app/products/${orderData?.product_id}`
       );
       const data = await res.json();
       return data;

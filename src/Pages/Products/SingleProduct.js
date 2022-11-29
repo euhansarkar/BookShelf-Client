@@ -30,7 +30,7 @@ const SingleProduct = ({ book, setChooseProduct }) => {
   const {data: seller = []} = useQuery({
     queryKey: [`seller`, seller_email],
     queryFn: async() => {
-      const res = await fetch(`http://localhost:5000/userbyEmail/${seller_email}`);
+      const res = await fetch(`https://products-resale-server-euhansarkar.vercel.app/userbyEmail/${seller_email}`);
       const data = await res.json();
       return data;
     }
@@ -50,7 +50,7 @@ const SingleProduct = ({ book, setChooseProduct }) => {
   };
 
   const handleWishList = () => {
-    fetch(`http://localhost:5000/wishlists`, {
+    fetch(`https://products-resale-server-euhansarkar.vercel.app/wishlists`, {
       method: `POST`,
       headers: {
         "Content-Type": `application/json`,
@@ -68,7 +68,7 @@ const SingleProduct = ({ book, setChooseProduct }) => {
 
 
   const handleReportToAdmin = id => {
-    fetch(`http://localhost:5000/products/${id}`, {
+    fetch(`https://products-resale-server-euhansarkar.vercel.app/products/${id}`, {
       method: `PUT`
     })
     .then(res => res.json())
