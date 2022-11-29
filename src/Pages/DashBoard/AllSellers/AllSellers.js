@@ -11,7 +11,7 @@ const AllUsers = () => {
   } = useQuery({
     queryKey: [`users`],
     queryFn: async () => {
-      const res = await fetch(`https://products-resale-server-euhansarkar.vercel.app/sellers`);
+      const res = await fetch(`https://products-resale-server.vercel.app/sellers`);
       const data = await res.json();
       return data;
     },
@@ -22,7 +22,7 @@ const AllUsers = () => {
   }
 
   const handleIsApproved = (id) => {
-    fetch(`https://products-resale-server-euhansarkar.vercel.app/users/seller/${id}`, {
+    fetch(`https://products-resale-server.vercel.app/users/seller/${id}`, {
       method: `PUT`,
       headers: {
         authorization: `bearer ${localStorage.getItem(`accessToken`)}`,

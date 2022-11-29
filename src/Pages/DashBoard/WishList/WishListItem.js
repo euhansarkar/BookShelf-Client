@@ -6,7 +6,7 @@ const WishListItem = ({ wish: { productId }, index }) => {
     const { data: wishlist = [] } = useQuery({
     queryKey: [`wishlist`, productId],
     queryFn: async () => {
-      const res = await fetch(`https://products-resale-server-euhansarkar.vercel.app/products/${productId}`);
+      const res = await fetch(`https://products-resale-server.vercel.app/products/${productId}`);
       const data = await res.json();
       return data;
     },

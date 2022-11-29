@@ -1,25 +1,40 @@
-import React, { useEffect, useState } from 'react';
-import { json } from 'react-router-dom';
-import CategoryNames from './CategoryNames';
+import React, { useEffect, useState } from "react";
+import { json } from "react-router-dom";
+import CategoryNames from "./CategoryNames";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import { Pagination } from "swiper";
 
 const Category = () => {
-    const [categoryData, setCategoryData] = useState([]);
-    useEffect(() => {
-        fetch(`https://products-resale-server-euhansarkar.vercel.app/categories`)
-        .then(res => res.json())
-        .then(data => setCategoryData(data));
-    }, [])
-    return (
-        <div className='mt-16'>
-            
-            <div className='grid md:grid-cols-2 lg:grid-cols-3 grid-cols-1 gap-16 my-12'>
-            {
-                categoryData.map(category => <CategoryNames key={category.category_id} category={category}></CategoryNames>)
-            }
-            </div>
-            
-        </div>
-    );
+  const [categoryData, setCategoryData] = useState([]);
+  useEffect(() => {
+    fetch(`https://products-resale-server.vercel.app/categories`)
+      .then((res) => res.json())
+      .then((data) => setCategoryData(data));
+  }, []);
+
+  return (
+    <>
+      <div className="mt-16">
+        <Swiper
+          slidesPerView={3}
+          spaceBetween={30}
+          pagination={{
+            clickable: true,
+          }}
+          modules={[Pagination]}
+          className="mySwiper"
+        >
+          {categoryData.map((category) => (
+            <SwiperSlide className="my-10">
+              <CategoryNames category={category} key={category._id}></CategoryNames>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+    </>
+  );
 };
 
 export default Category;

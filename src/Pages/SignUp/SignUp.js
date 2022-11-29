@@ -65,7 +65,7 @@ const SignUp = () => {
 
   const saveUserToDataBase = (name, email, role) => {
     const user = { name, email, role };
-    fetch(`https://products-resale-server-euhansarkar.vercel.app/users`, {
+    fetch(`https://products-resale-server.vercel.app/users`, {
       method: `POST`,
       headers: {
         "Content-Type": `application/json`,

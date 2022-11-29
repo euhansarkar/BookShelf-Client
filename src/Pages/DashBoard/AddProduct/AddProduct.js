@@ -63,7 +63,7 @@ const AddProduct = () => {
             isReported: false,
           };
 
-          fetch(`https://products-resale-server-euhansarkar.vercel.app/products`, {
+          fetch(`https://products-resale-server.vercel.app/products`, {
             method: `POST`,
             headers: {
               "Content-Type": `application/json`,
@@ -84,7 +84,7 @@ const AddProduct = () => {
   const { data: categoryName, isLoading } = useQuery({
     queryKey: [`category`],
     queryFn: async () => {
-      const res = await fetch(`https://products-resale-server-euhansarkar.vercel.app/categories`);
+      const res = await fetch(`https://products-resale-server.vercel.app/categories`);
       const data = await res.json();
       return data;
     },

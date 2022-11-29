@@ -8,7 +8,7 @@ const SingleOrder = ({ order, index, setDeleteOrder }) => {
   const { data: product = [] } = useQuery({
     queryKey: [`order`, product_id],
     queryFn: async () => {
-      const res = await fetch(`https://products-resale-server-euhansarkar.vercel.app/products/${product_id}`);
+      const res = await fetch(`https://products-resale-server.vercel.app/products/${product_id}`);
       const data = await res.json();
       return data;
     },

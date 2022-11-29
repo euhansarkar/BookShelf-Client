@@ -7,7 +7,7 @@ const AllUsers = () => {
   const { data: users, isLoading, refetch } = useQuery({
     queryKey: [`users`],
     queryFn: async () => {
-      const res = await fetch(`https://products-resale-server-euhansarkar.vercel.app/buyers`);
+      const res = await fetch(`https://products-resale-server.vercel.app/buyers`);
       const data = await res.json();
       return data;
     },
@@ -18,7 +18,7 @@ const AllUsers = () => {
   }
 
   const handleMakeAdmin = (id) => {
-    fetch(`https://products-resale-server-euhansarkar.vercel.app/users/admin/${id}`, {
+    fetch(`https://products-resale-server.vercel.app/users/admin/${id}`, {
       method: `PUT`,
       headers: {
         authorization: localStorage.getItem(`accessToken`),

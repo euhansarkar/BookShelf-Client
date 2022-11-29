@@ -54,7 +54,7 @@ const Routes = createBrowserRouter([
         path: `/category/:id`,
         element: <Products></Products>,
         loader: ({ params }) =>
-          fetch(`https://products-resale-server-euhansarkar.vercel.app/category/${params.id}`),
+          fetch(`https://products-resale-server.vercel.app/category/${params.id}`),
       },
     ],
   },
@@ -122,7 +122,7 @@ const Routes = createBrowserRouter([
         path: `/dashboard/payment/:id`,
         element: <Payment></Payment>,
         loader: ({ params }) =>
-          fetch(`https://products-resale-server-euhansarkar.vercel.app/payorder/${params.id}`),
+          fetch(`https://products-resale-server.vercel.app/payorder/${params.id}`),
       },
       {
         path: `/dashboard/wishlists`,

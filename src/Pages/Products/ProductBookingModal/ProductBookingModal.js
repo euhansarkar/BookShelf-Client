@@ -36,7 +36,7 @@ const ProductBookingModal = ({ chooseProduct, setChooseProduct }) => {
         isPaid: false,
     }
 
-    fetch(`https://products-resale-server-euhansarkar.vercel.app/orders`, {
+    fetch(`https://products-resale-server.vercel.app/orders`, {
         method: `POST`,
         headers: {
             "Content-Type": `application/json`
