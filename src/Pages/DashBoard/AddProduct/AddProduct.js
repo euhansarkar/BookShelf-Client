@@ -6,9 +6,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
 
 const AddProduct = () => {
-  const {
-    user: { displayName, email },
-  } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
+  const {displayName, email} = user;
   const imgUploadKey = process.env.REACT_APP_IMGBB_KEY;
   const {
     register,
@@ -18,6 +17,7 @@ const AddProduct = () => {
   const navigate = useNavigate();
 
   const handleAddProduct = (data) => {
+    console.log(data);
     const {
       category_name,
       title,
@@ -26,11 +26,9 @@ const AddProduct = () => {
       resalePrice,
       yearsOfUse,
       author,
-      name,
       seller_name,
       seller_email,
       description,
-      img,
     } = data;
     const image = data.img[0];
 
@@ -230,12 +228,14 @@ const AddProduct = () => {
             <span className="label-text">Your Name</span>
           </label>
           <input
-            {...register("seller_name")}
+            {...register("seller_name", {
+              required: `seller name is required`,
+            })}
             type="text"
-            defaultValue={displayName}
-            disabled
+            placeholder="your name"
             className="input input-bordered w-full"
           />
+          {errors?.seller_name && <p className="text-red-400">{errors?.seller_name?.message}</p>}
         </div>
 
         <div className="form-control w-full">
@@ -243,12 +243,13 @@ const AddProduct = () => {
             <span className="label-text">Your Email</span>
           </label>
           <input
-            {...register("seller_email")}
+            {...register("seller_email", {
+              required: `seller email is required`,
+            })}
             type="email"
-            defaultValue={email}
-            disabled
             className="input input-bordered w-full"
           />
+          {errors?.seller_email && <p className="text-red-400">{errors?.seller_email?.message}</p>}
         </div>
 
         <div className="form-control w-full grid-flow-[2]">

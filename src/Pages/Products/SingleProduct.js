@@ -3,9 +3,12 @@ import { Link } from "react-router-dom";
 import { FaHeart, FaTimesCircle } from "react-icons/fa";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import toast from "react-hot-toast";
+import { useQuery } from "@tanstack/react-query";
+import { FaCheckCircle } from 'react-icons/fa';
 
 const SingleProduct = ({ book, setChooseProduct }) => {
   const { user } = useContext(AuthContext);
+
   const {
     category_name,
     description,
@@ -17,10 +20,24 @@ const SingleProduct = ({ book, setChooseProduct }) => {
     title,
     yearsOfUse,
     resalePrice,
+    seller_email,
     _id,
     author,
     isReported
   } = book;
+
+
+  const {data: seller = []} = useQuery({
+    queryKey: [`seller`, seller_email],
+    queryFn: async() => {
+      const res = await fetch(`http://localhost:5000/userbyEmail/${seller_email}`);
+      const data = await res.json();
+      return data;
+    }
+  })
+
+  console.log(seller);
+
 
   const usedDays = (yearsOfUse) => {
     const milliSeconds = new Date().getTime() - new Date(yearsOfUse).getTime();
@@ -52,11 +69,7 @@ const SingleProduct = ({ book, setChooseProduct }) => {
 
   const handleReportToAdmin = id => {
     fetch(`http://localhost:5000/products/${id}`, {
-      method: `PATCH`,
-      headers: {
-        "Content-Type": `application/json`,
-      },
-      body: JSON.stringify(isReported)
+      method: `PUT`
     })
     .then(res => res.json())
     .then(data => {
@@ -78,6 +91,9 @@ const SingleProduct = ({ book, setChooseProduct }) => {
               className="text-sm font-semibold"
             >
               Seller : {seller_name}
+              {/* {
+                seller.isApproved && <FaCheckCircle className="text-sky-400"/>
+              } */}
             </Link>
             <span className="text-xs dark:text-gray-400">
               published date: {posted.slice(0, 10)}
@@ -137,7 +153,6 @@ const SingleProduct = ({ book, setChooseProduct }) => {
             add to wishlist
           </button>
           <button onClick={() => handleReportToAdmin(_id)} className="btn">
-            {" "}
             <FaTimesCircle className="text-warning mx-1" /> report to admin
           </button>
         </div>

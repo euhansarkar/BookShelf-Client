@@ -4,7 +4,11 @@ import React from "react";
 import toast from "react-hot-toast";
 
 const AllUsers = () => {
-  const { data: users, isLoading, refetch } = useQuery({
+  const {
+    data: users,
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: [`users`],
     queryFn: async () => {
       const res = await fetch(`http://localhost:5000/sellers`);
@@ -17,19 +21,19 @@ const AllUsers = () => {
     return <p>loading</p>;
   }
 
-  const handleMakeAdmin = (id) => {
-    fetch(`http://localhost:5000/users/admin/${id}`, {
+  const handleIsApproved = (id) => {
+    fetch(`http://localhost:5000/users/seller/${id}`, {
       method: `PUT`,
       headers: {
-        authorization: localStorage.getItem(`accessToken`),
-      }
+        authorization: `bearer ${localStorage.getItem(`accessToken`)}`,
+      },
     })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        if(data.modifiedCount > 0){
-            refetch();
-            toast.success(`user added as an admin`)
+        if (data.modifiedCount > 0) {
+          refetch();
+          toast.success(`user approved!`);
         }
       });
   };
@@ -46,7 +50,7 @@ const AllUsers = () => {
               <th>No.</th>
               <th>Name</th>
               <th>Email</th>
-              <th>Admin</th>
+              <th>Permission</th>
               <th>Delete</th>
             </tr>
           </thead>
@@ -57,13 +61,17 @@ const AllUsers = () => {
                 <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td>
-                  {user?.role !== `admin` && (
+                  {user?.isApproved !== true ? (
                     <button
-                      onClick={() => handleMakeAdmin(user._id)}
+                      onClick={() => handleIsApproved(user._id)}
                       className="btn btn-primary btn-xs btn-outline"
                     >
-                      make admin
+                      make approved
                     </button>
+                  ) : (
+                    <p className="text-green-400 ml-2">
+                      <strong>approved</strong>
+                    </p>
                   )}
                 </td>
                 <td>
