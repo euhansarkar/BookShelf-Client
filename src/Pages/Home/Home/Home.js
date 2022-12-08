@@ -1,4 +1,5 @@
 import React from 'react';
+import AdvertisedProducts from '../AdvertisedProducts/AdvertisedProducts';
 import Category from '../Category/Category';
 import HomeBanner from '../HomeBanner/HomeBanner';
 import Asked from './Asked/Asked';
@@ -8,6 +9,7 @@ const Home = () => {
         <div className='bg-[]'>
             <HomeBanner></HomeBanner>
             <Category></Category>
+            <AdvertisedProducts></AdvertisedProducts>
         </div>
     );
 };

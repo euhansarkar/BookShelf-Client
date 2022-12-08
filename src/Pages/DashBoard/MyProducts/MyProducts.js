@@ -9,19 +9,27 @@ const MyProducts = () => {
   const [advertised, setAdvertised] = useState(false);
   const { user } = useContext(AuthContext);
   const [deletingProduct, setDeletingProduct] = useState(null);
-  
-  const { data: products = [], refetch } = useQuery({
+
+  const {
+    data: products,
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: [`products`, user?.email],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/productsme?email=${user?.email}}`
+        `http://localhost:5000/productsme?email=${user?.email}`
       );
       const data = await res.json();
       return data;
     },
   });
 
-  console.log(products);
+  if (isLoading) {
+    return `loading`;
+  }
+
+  // console.log(products);
 
   const closeModal = () => {
     setDeletingProduct(null);
@@ -42,13 +50,34 @@ const MyProducts = () => {
   };
 
   const handleAdvertise = (id) => {
-    if (id) {
-      setAdvertised(!advertised);
-    }
-    fetch(``);
+    fetch(`http://localhost:5000/advertiseTrue/${id}`, {
+      method: `PUT`,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.modifiedCount > 0) {
+          refetch();
+          toast.success(`advertise on`);
+        }
+      });
   };
 
-  console.log(advertised);
+  const handleAdvertiseFalse = (id) => {
+    fetch(`http://localhost:5000/advertiseFalse/${id}`, {
+      method: `PUT`,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if(data.modifiedCount > 0){
+          refetch();
+          toast.success(`advertise off`);
+        }
+      });
+  };
+
+  // console.log(advertised);
 
   return (
     <div>
@@ -74,6 +103,8 @@ const MyProducts = () => {
                 advertised={advertised}
                 index={index}
                 setDeletingProduct={setDeletingProduct}
+                handleAdvertiseFalse={handleAdvertiseFalse}
+                refetch={refetch}
               ></MySingleProduct>
             ))}
           </tbody>

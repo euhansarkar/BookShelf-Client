@@ -1,6 +1,13 @@
 import React from "react";
 
-const mySingleProduct = ({product, index, handleAdvertise, advertised, setDeletingProduct}) => {
+const mySingleProduct = ({
+  product,
+  index,
+  handleAdvertise,
+  advertised,
+  setDeletingProduct,
+  handleAdvertiseFalse,
+}) => {
   return (
     <tr key={product?._id}>
       <th>{index + 1}</th>
@@ -14,16 +21,25 @@ const mySingleProduct = ({product, index, handleAdvertise, advertised, setDeleti
         )}
       </td>
       <td>
-        <button
-          onClick={(e) => handleAdvertise(e.target)}
-          className="btn btn-outline btn-sm btn-primary"
-        >
-          {advertised === true ? (
-            <strong className="font-bold">turn off</strong>
-          ) : (
-            <strong className="font-bold">turn on</strong>
-          )}
-        </button>
+        {product.isAdvertise !== false ? (
+          <>
+            <button
+              onClick={() => handleAdvertiseFalse(product._id)}
+              className="btn btn-outline btn-sm btn-primary"
+            >
+              advertise on
+            </button>
+          </>
+        ) : (
+          <>
+            <button
+              onClick={() => handleAdvertise(product._id)}
+              className="btn btn-outline btn-sm btn-secondary"
+            >
+              advertise off
+            </button>
+          </>
+        )}
       </td>
       <td>{product?.isPurchased}</td>
       <td>
