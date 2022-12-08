@@ -1,9 +1,13 @@
-import React, { useContext } from "react";
+import React from "react";
+import { useContext } from "react";
 import toast from "react-hot-toast";
 import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
 
 const ProductBookingModal = ({ chooseProduct, setChooseProduct }) => {
 
+  const {user} = useContext(AuthContext);
+  console.log(user);
+  // console.log(chooseProduct);
   const { category_name,
     description,
     img,
@@ -16,8 +20,6 @@ const ProductBookingModal = ({ chooseProduct, setChooseProduct }) => {
     yearsOfUse,
     resalePrice,
     _id } = chooseProduct;
-  const { user } = useContext(AuthContext);
-  const {displayName, email} = user;
 
 
   const handleProductBooking = (event) => {
@@ -27,8 +29,8 @@ const ProductBookingModal = ({ chooseProduct, setChooseProduct }) => {
     const location = form.location.value;
 
     const booking = {
-        displayName,
-        email,
+        displayName: user?.displayName,
+        email: user?.email,
         buyer_phone: phone,
         buyer_location: location,
         order_date: new Date(),
@@ -36,7 +38,7 @@ const ProductBookingModal = ({ chooseProduct, setChooseProduct }) => {
         isPaid: false,
     }
 
-    fetch(`https://products-resale-server.vercel.app/orders`, {
+    fetch(`http://localhost:5000/orders`, {
         method: `POST`,
         headers: {
             "Content-Type": `application/json`
@@ -78,7 +80,7 @@ const ProductBookingModal = ({ chooseProduct, setChooseProduct }) => {
             />
             <input
               type="text"
-              defaultValue={price}
+              defaultValue={resalePrice}
               disabled
               className="input w-full input-bordered my-2"
             />

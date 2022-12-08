@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
 import { FaUserCircle } from "react-icons/fa";
 import avatar from "../../../assets/images/avatar/avatar.jpg"
+import logo from "../../../assets/images/logo/logo.png"
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
 
@@ -15,24 +16,24 @@ const Navbar = () => {
 
   const menuItems = (
     <>
-      <li>
+      <li className="font-bold">
         <Link to={`/`}>Home</Link>
       </li>
-      <li>
+      <li className="font-bold">
         <Link to={`/blogs`}>Blogs</Link>
       </li>
-      <li>
+      <li className="font-bold">
         <Link to={`/about`}>About</Link>
       </li>
-      <li>
+      <li className="font-bold">
         <Link to={`/dashboard`}>DashBoard</Link>
       </li>
       {user?.email ? (
-        <li>
+        <li className="font-bold">
           <button onClick={handleLogOut}>logout</button>
         </li>
       ) : (
-        <li>
+        <li className="font-bold">
           <Link to={`/login`}>Login</Link>
         </li>
       )}
@@ -40,8 +41,8 @@ const Navbar = () => {
   );
 
   return (
-    <div className="navbar bg-slate-400 text-white rounded-md">
-      <div className="navbar-start">
+    <div className="navbar bg-black text-white">
+      <div className="navbar-start relative">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
             <svg
@@ -66,7 +67,9 @@ const Navbar = () => {
             {menuItems}
           </ul>
         </div>
-        <Link className="btn btn-ghost normal-case text-xl">bookshelf</Link>
+        <Link className="btn btn-ghost normal-case text-xl absolute right-[230px] -top-[65px]">
+          <img src={logo} className="w-40" alt="" />
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal p-0">{menuItems}</ul>

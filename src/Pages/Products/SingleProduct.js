@@ -27,16 +27,16 @@ const SingleProduct = ({ book, setChooseProduct }) => {
   } = book;
 
 
-  const {data: seller = []} = useQuery({
-    queryKey: [`seller`, seller_email],
-    queryFn: async() => {
-      const res = await fetch(`https://products-resale-server.vercel.app/userbyEmail/${seller_email}`);
-      const data = await res.json();
-      return data;
-    }
-  })
+  // const {data: seller = []} = useQuery({
+  //   queryKey: [`seller`, seller_email],
+  //   queryFn: async() => {
+  //     const res = await fetch(`http://localhost:5000/userbyEmail/${seller_email}`);
+  //     const data = await res.json();
+  //     return data;
+  //   }
+  // })
 
-  console.log(seller);
+  // console.log(seller);
 
 
   const usedDays = (yearsOfUse) => {
@@ -50,7 +50,7 @@ const SingleProduct = ({ book, setChooseProduct }) => {
   };
 
   const handleWishList = () => {
-    fetch(`https://products-resale-server.vercel.app/wishlists`, {
+    fetch(`http://localhost:5000/wishlists`, {
       method: `POST`,
       headers: {
         "Content-Type": `application/json`,
@@ -68,7 +68,7 @@ const SingleProduct = ({ book, setChooseProduct }) => {
 
 
   const handleReportToAdmin = id => {
-    fetch(`https://products-resale-server.vercel.app/products/${id}`, {
+    fetch(`http://localhost:5000/products/${id}`, {
       method: `PUT`
     })
     .then(res => res.json())

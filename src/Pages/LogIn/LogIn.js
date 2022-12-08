@@ -64,7 +64,7 @@ const LogIn = () => {
             <form onSubmit={handleSubmit(handleLogIn)}>
               <div className="form-control w-full">
                 <label className="label">
-                  <span className="label-text">Your Email</span>
+                  <span className="label-text font-semibold">Your Email</span>
                 </label>
                 <input
                   {...register("email", {
@@ -80,7 +80,7 @@ const LogIn = () => {
               </div>
               <div className="form-control w-full">
                 <label className="label">
-                  <span className="label-text">Your Password</span>
+                  <span className="label-text font-semibold">Your Password</span>
                 </label>
                 <input
                   {...register("password", {
@@ -94,7 +94,7 @@ const LogIn = () => {
                   <p className="text-red-400">{errors?.password?.message}</p>
                 )}
                 <label className="label">
-                  <span className="label-text">forgot password?</span>
+                  <span className="label-text font-semibold">forgot password?</span>
                 </label>
               </div>
               <div className="items-center flex flex-col justify-center">
@@ -104,7 +104,7 @@ const LogIn = () => {
                   className="btn btn-primary w-full "
                 />
                 <p className="text-red-400">{logInError}</p>
-                <p>
+                <p className="font-semibold">
                   new to <span className="text-success">Book Self</span>?
                   <Link className="text-secondary" to="/signup">
                     create new account

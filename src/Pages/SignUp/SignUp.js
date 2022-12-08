@@ -65,7 +65,7 @@ const SignUp = () => {
 
   const saveUserToDataBase = (name, email, role) => {
     const user = { name, email, role };
-    fetch(`https://products-resale-server.vercel.app/users`, {
+    fetch(`http://localhost:5000/users`, {
       method: `POST`,
       headers: {
         "Content-Type": `application/json`,
@@ -102,7 +102,7 @@ const SignUp = () => {
                   })}
                   type="text"
                   placeholder="Your Full Name"
-                  className="input input-bordered w-full"
+                  className="input input-bordered focus:outline-none w-full"
                 />
                 {errors?.name && (
                   <p className="text-red-400">{errors?.name?.message}</p>
@@ -118,7 +118,7 @@ const SignUp = () => {
                   })}
                   type="email"
                   placeholder="Your Email"
-                  className="input input-bordered w-full"
+                  className="input input-bordered focus:outline-none w-full"
                 />
                 {errors?.email && (
                   <p className="text-red-400">{errors.email?.message}</p>
@@ -167,7 +167,7 @@ const SignUp = () => {
                   })}
                   type="password"
                   placeholder="Your Password"
-                  className="input input-bordered w-full"
+                  className="input input-bordered focus:outline-none w-full"
                 />
                 {errors.password && (
                   <p className="text-red-400">{errors?.password?.message}</p>

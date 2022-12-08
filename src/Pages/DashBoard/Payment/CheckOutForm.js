@@ -16,7 +16,7 @@ const CheckOutForm = ({ product, orderData }) => {
 
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
-    fetch("https://products-resale-server.vercel.app/create-payment-intent", {
+    fetch("http://localhost:5000/create-payment-intent", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -84,7 +84,7 @@ const CheckOutForm = ({ product, orderData }) => {
         transectionId: paymentIntent.id,
       };
 
-      fetch(`https://products-resale-server.vercel.app/payments`, {
+      fetch(`http://localhost:5000/payments`, {
         method: `POST`,
         headers: {
           "Content-Type": `application/json`,

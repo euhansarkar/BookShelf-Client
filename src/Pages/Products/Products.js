@@ -7,7 +7,7 @@ const Products = () => {
     const books = useLoaderData();
     const name = books[0].category_name.split(`_`).join(` `);
     const [chooseProduct, setChooseProduct] = useState(null);
-    console.log(name);
+    
     return (
         <div className='my-6 text-center'>
             <h2 className='text-5xl font-semibold capitalize'>see your desire {name}</h2>

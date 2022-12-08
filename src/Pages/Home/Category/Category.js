@@ -5,34 +5,44 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper";
-
+import "./Category.css";
 const Category = () => {
   const [categoryData, setCategoryData] = useState([]);
   useEffect(() => {
-    fetch(`https://products-resale-server.vercel.app/categories`)
+    fetch(`http://localhost:5000/categories`)
       .then((res) => res.json())
       .then((data) => setCategoryData(data));
   }, []);
 
   return (
     <>
-      <div className="mt-16">
-        <Swiper
-          slidesPerView={3}
-          spaceBetween={30}
-          pagination={{
-            clickable: true,
-          }}
-          modules={[Pagination]}
-          className="mySwiper"
-        >
-          {categoryData.map((category) => (
-            <SwiperSlide className="my-10">
-              <CategoryNames category={category} key={category._id}></CategoryNames>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
+      <Swiper 
+        breakpoints={{
+          640: {
+            width: 640,
+            slidesPerView: 1,
+          },
+          768: {
+            width: 768,
+            slidesPerView: 2,
+          },
+        }}
+        spaceBetween={30}
+        pagination={{
+          clickable: true,
+        }}
+        modules={[Pagination]}
+        className="mySwiper px-10"
+      >
+        {categoryData.map((category) => (
+          <SwiperSlide className="my-20">
+            <CategoryNames
+              category={category}
+              key={category._id}
+            ></CategoryNames>
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </>
   );
 };

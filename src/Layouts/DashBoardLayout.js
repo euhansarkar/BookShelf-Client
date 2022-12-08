@@ -5,6 +5,7 @@ import { AuthContext } from "../contexts/AuthProvider/AuthProvider";
 import useAdmin from "../hooks/useAdmin";
 import useSeller from "../hooks/useSeller";
 import useBuyer from "../hooks/useBuyer";
+import Footer from "../Pages/Shared/Footer/Footer";
 const DashBoardLayout = () => {
   const { user } = useContext(AuthContext);
   const [isAdmin] = useAdmin(user?.email);
@@ -25,26 +26,40 @@ const DashBoardLayout = () => {
             {isAdmin && (
               <>
                 <li>
-                  <Link to={`/dashboard/allusers`}>All Users</Link>
+                  <strong>
+                    <Link to={`/dashboard/allusers`}>All Users</Link>
+                  </strong>
                 </li>
                 <li>
-                  <Link to={`/dashboard/allbuyers`}>All Buyers</Link>
+                  <strong>
+                    <Link to={`/dashboard/allbuyers`}>All Buyers</Link>
+                  </strong>
                 </li>
                 <li>
-                  <Link to={`/dashboard/allsellers`}>All Sellers</Link>
+                  <strong>
+                    <Link to={`/dashboard/allsellers`}>All Sellers</Link>
+                  </strong>
                 </li>
                 <li>
-                  <Link to={`/dashboard/reportedproducts`}>Reported Products</Link>
+                  <strong>
+                    <Link to={`/dashboard/reportedproducts`}>
+                      Reported Products
+                    </Link>
+                  </strong>
                 </li>
               </>
             )}
             {isSeller && (
               <>
+                <strong>
+                  <li>
+                    <Link to={`/dashboard/myproducts`}>My Products</Link>
+                  </li>
+                </strong>
                 <li>
-                  <Link to={`/dashboard/myproducts`}>My Products</Link>
-                </li>
-                <li>
-                  <Link to={`/dashboard/addaproduct`}>add a product</Link>
+                  <strong>
+                    <Link to={`/dashboard/addaproduct`}>add a product</Link>
+                  </strong>
                 </li>
               </>
             )}
@@ -62,6 +77,7 @@ const DashBoardLayout = () => {
           </ul>
         </div>
       </div>
+      <Footer></Footer>
     </div>
   );
 };

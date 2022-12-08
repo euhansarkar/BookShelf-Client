@@ -63,7 +63,7 @@ const AddProduct = () => {
             isReported: false,
           };
 
-          fetch(`https://products-resale-server.vercel.app/products`, {
+          fetch(`http://localhost:5000/products`, {
             method: `POST`,
             headers: {
               "Content-Type": `application/json`,
@@ -84,7 +84,7 @@ const AddProduct = () => {
   const { data: categoryName, isLoading } = useQuery({
     queryKey: [`category`],
     queryFn: async () => {
-      const res = await fetch(`https://products-resale-server.vercel.app/categories`);
+      const res = await fetch(`http://localhost:5000/categories`);
       const data = await res.json();
       return data;
     },
@@ -96,7 +96,7 @@ const AddProduct = () => {
 
   return (
     <div>
-      <h2 className="text-5xl font-bold">this is add product page</h2>
+      <h2 className="text-5xl font-bold text-center my-5 text-primary capitalize">add a product</h2>
       <form
         className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mx-6 space-x-3 mt-8"
         onSubmit={handleSubmit(handleAddProduct)}
@@ -148,7 +148,7 @@ const AddProduct = () => {
           <input
             {...register("author")}
             type="text"
-            placeholder="Your Full Name"
+            placeholder="Author Name"
             className="input input-bordered w-full"
           />
           {errors?.author && (
