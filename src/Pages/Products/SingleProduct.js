@@ -1,10 +1,10 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { FaHeart, FaTimesCircle } from "react-icons/fa";
+import { FaHeart, FaLayerGroup, FaRegHeart, FaRegEye } from "react-icons/fa";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import toast from "react-hot-toast";
 import { useQuery } from "@tanstack/react-query";
-import { FaCheckCircle } from 'react-icons/fa';
+import { FaCheckCircle } from "react-icons/fa";
 
 const SingleProduct = ({ book, setChooseProduct }) => {
   const { user } = useContext(AuthContext);
@@ -23,10 +23,10 @@ const SingleProduct = ({ book, setChooseProduct }) => {
     seller_email,
     _id,
     author,
-    isReported
+    isReported,
   } = book;
 
-
+  console.log(typeof posted);
   // const {data: seller = []} = useQuery({
   //   queryKey: [`seller`, seller_email],
   //   queryFn: async() => {
@@ -37,7 +37,6 @@ const SingleProduct = ({ book, setChooseProduct }) => {
   // })
 
   // console.log(seller);
-
 
   const usedDays = (yearsOfUse) => {
     const milliSeconds = new Date().getTime() - new Date(yearsOfUse).getTime();
@@ -66,95 +65,50 @@ const SingleProduct = ({ book, setChooseProduct }) => {
       });
   };
 
-
-  const handleReportToAdmin = id => {
+  const handleReportToAdmin = (id) => {
     fetch(`http://localhost:5000/products/${id}`, {
-      method: `PUT`
+      method: `PUT`,
     })
-    .then(res => res.json())
-    .then(data => {
-      console.log(data);
-      if(data.modifiedCount > 0){
-        toast.success(`your report has submitted successfully to the admin!`);
-      }
-    })
-  }
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.modifiedCount > 0) {
+          toast.success(`your report has submitted successfully to the admin!`);
+        }
+      });
+  };
 
   return (
-    <div className="flex flex-col max-w-lg p-6 space-y-6 overflow-hidden rounded-lg shadow-md dark:bg-gray-900 dark:text-gray-100">
-      <div className="flex justify-between">
-        <div className="flex items-center justify-between">
-          <div className="flex flex-col space-y-1">
-            <Link
-              rel="noopener noreferrer"
-              href="#"
-              className="text-sm font-semibold"
-            >
-              Seller : {seller_name}
-              {/* {
-                seller.isApproved && <FaCheckCircle className="text-sky-400"/>
-              } */}
-            </Link>
-            <span className="text-xs dark:text-gray-400">
-              published date: {posted.slice(0, 10)}
-            </span>
+    <div className="w-full h-fit">
+      <div className=" group">
+        <div className="text-center flex flex-col w-72 h-80 overflow-hidden shadow-md rounded-lg  relative">
+          <div className="items-center">
+            <div className="flex items-center justify-center mb-2">
+              <img src={img} alt="" className="h-48 w-30 object-top" />
+            </div>
+            <h2 className="mb-1 text-xl font-semibold">
+              {title.length > 50 ? title.slice(0, 50) : title}
+            </h2>
+            <p className="text-sm ">{author}</p>
+            <p className="text-sm font-semibold mt-1">
+              added on {posted.length > 12 ? posted.slice(0, 12) : posted}
+            </p>
+
+            <p>
+              <strong>${resalePrice}.00</strong>
+            </p>
           </div>
-          <div className="flex flex-col pl-16">
-            <div className="badge badge-secondary">from {location}</div>
-            <span className="text-xs dark:text-gray-400">
-              book used {usedDays(yearsOfUse)} days
-            </span>
+          <div className="absolute h-1/2 w-full bg-black/80 flex items-center justify-center -bottom-10 group-hover:bottom-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
+            <div className="bg-white text-red-700 p-2 rounded-full mx-2 hover:bg-red-700 hover:text-white">
+              <FaRegHeart className=" text-2xl " />
+            </div>
+            <div className="bg-white text-gray-800 p-2 rounded-full mx-2 hover:bg-gray-400 hover:text-white">
+              <FaRegEye className="text-2xl" />
+            </div>
+            <div className="bg-white p-2 rounded-full mx-2 hover:bg-gray-400">
+              <FaLayerGroup className="text-gray-800 text-2xl" />
+            </div>
           </div>
-        </div>
-        <div></div>
-      </div>
-      <div>
-        <img
-          src={img}
-          alt=""
-          className="h-60 w-full mb-2 object-contain sm:h-60 dark:bg-gray-500"
-        />
-        <h2 className="mb-1 text-xl font-semibold">
-          {title.length > 50 ? title.slice(0, 50) : title}
-        </h2>
-        <p className="text-sm dark:text-gray-400">Author: {author}</p>
-      </div>
-      <div className="flex flex-wrap justify-between">
-        <div>
-          <button
-            aria-label="Share this post"
-            type="button"
-            className="pb-3 text-start font-xl"
-          >
-            Original Price: <strong>${originalPrice}</strong> <br />
-            Resale Price: <strong>${resalePrice}</strong>
-          </button>
-          <button
-            aria-label="Bookmark this post"
-            type="button"
-            className="p-2"
-          ></button>
-        </div>
-        <div className="flex space-x-2 text-sm dark:text-gray-400">
-          <label
-            onClick={() => setChooseProduct(book)}
-            className="btn w-full btn-primary"
-            htmlFor="productBookingModal"
-          >
-            book now to buy
-          </label>
-        </div>
-        <div className="btn-group w-full btn-group-vertical lg:btn-group-horizontal">
-          <button
-            onClick={() => handleWishList(_id)}
-            className="btn ml-16 btn-primary"
-          >
-            <FaHeart className="text-error mx-1" />
-            add to wishlist
-          </button>
-          <button onClick={() => handleReportToAdmin(_id)} className="btn">
-            <FaTimesCircle className="text-warning mx-1" /> report to admin
-          </button>
         </div>
       </div>
     </div>

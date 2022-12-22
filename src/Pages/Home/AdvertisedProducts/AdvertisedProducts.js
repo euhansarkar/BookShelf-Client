@@ -23,7 +23,7 @@ const AdvertisedProducts = () => {
         <div>
             <h2 className='font-bold text-4xl md:text-5xl text-center capitalize'>featured products</h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 my-20">
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 my-20">
                 {
                     advertisedProducts.map(book => <SingleProduct book={book} key={book._id}></SingleProduct>)
                 }
