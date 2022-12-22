@@ -11,7 +11,7 @@ const Products = () => {
     return (
         <div className='my-6 text-center'>
             <h2 className='text-5xl font-semibold capitalize'>see your desire {name}</h2>
-            <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 my-20'>
+            <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 my-20 mx-8'>
                 {
                     books.map(book => <SingleProduct book={book}
                         setChooseProduct={setChooseProduct} key={book._id}></SingleProduct>)

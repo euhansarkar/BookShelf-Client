@@ -17,7 +17,7 @@ const CategoryNames = ({ category }) => {
     <SwiperSlide>
       <div
         data-aos="fade-up"
-        className="card w-full px-10 bg-gray-800 shadow-xl"
+        className="card w-11/12 mx-auto px-4 bg-gray-800 shadow-xl"
       >
         <div className="card-body items-center">
           <h2 className="card-title text-center">{category_Name}</h2>

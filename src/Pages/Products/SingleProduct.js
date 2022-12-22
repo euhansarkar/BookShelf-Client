@@ -1,10 +1,10 @@
-import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
-import { FaHeart, FaLayerGroup, FaRegHeart, FaRegEye } from "react-icons/fa";
-import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
+import React, { useContext } from "react";
+import { FaRegEye, FaRegHeart } from "react-icons/fa";
+import { MdReport } from "react-icons/md";
+import { RiShoppingCartLine } from "react-icons/ri";
+
 import toast from "react-hot-toast";
-import { useQuery } from "@tanstack/react-query";
-import { FaCheckCircle } from "react-icons/fa";
+import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 
 const SingleProduct = ({ book, setChooseProduct }) => {
   const { user } = useContext(AuthContext);
@@ -100,13 +100,27 @@ const SingleProduct = ({ book, setChooseProduct }) => {
           </div>
           <div className="absolute h-1/2 w-full bg-black/80 flex items-center justify-center -bottom-10 group-hover:bottom-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
             <div className="bg-white text-red-700 p-2 rounded-full mx-2 hover:bg-red-700 hover:text-white">
-              <FaRegHeart className=" text-2xl " />
+              <FaRegHeart
+                onClick={() => handleWishList(_id)}
+                className=" text-2xl "
+              />
             </div>
             <div className="bg-white text-gray-800 p-2 rounded-full mx-2 hover:bg-gray-400 hover:text-white">
               <FaRegEye className="text-2xl" />
             </div>
             <div className="bg-white p-2 rounded-full mx-2 hover:bg-gray-400">
-              <FaLayerGroup className="text-gray-800 text-2xl" />
+              <label
+                htmlFor="productBookingModal"
+                onClick={() => setChooseProduct(book)}
+              >
+              <RiShoppingCartLine className="text-gray-800 text-2xl" />
+              </label>
+            </div>
+            <div className="bg-white p-2 rounded-full mx-2 hover:bg-gray-400">
+              <MdReport
+                onClick={() => handleReportToAdmin(_id)}
+                className="text-gray-800 text-2xl"
+              />
             </div>
           </div>
         </div>

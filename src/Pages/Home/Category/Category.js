@@ -27,15 +27,15 @@ const Category = () => {
             slidesPerView: 2,
           },
         }}
-        spaceBetween={30}
+        spaceBetween={20}
         pagination={{
           clickable: true,
         }}
         modules={[Pagination]}
-        className="mySwiper px-10"
+        className="mySwiper"
       >
         {categoryData.map((category) => (
-          <SwiperSlide className="my-20">
+          <SwiperSlide className="my-20 lg:mx-8">
             <CategoryNames
               category={category}
               key={category._id}
