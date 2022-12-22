@@ -1,4 +1,3 @@
-import { async } from "@firebase/util";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import toast from "react-hot-toast";
@@ -11,7 +10,7 @@ const AllUsers = () => {
   } = useQuery({
     queryKey: [`users`],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/sellers`);
+      const res = await fetch(`https://products-resale-server.vercel.app/sellers`);
       const data = await res.json();
       return data;
     },
@@ -22,7 +21,7 @@ const AllUsers = () => {
   }
 
   const handleIsApproved = (id) => {
-    fetch(`http://localhost:5000/users/seller/${id}`, {
+    fetch(`https://products-resale-server.vercel.app/users/seller/${id}`, {
       method: `PUT`,
       headers: {
         authorization: `bearer ${localStorage.getItem(`accessToken`)}`,

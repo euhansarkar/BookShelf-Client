@@ -1,4 +1,3 @@
-import { async } from "@firebase/util";
 import { createBrowserRouter } from "react-router-dom";
 import DashBoardLayout from "../../Layouts/DashBoardLayout";
 import Main from "../../Layouts/Main";
@@ -8,9 +7,10 @@ import AddProduct from "../../Pages/DashBoard/AddProduct/AddProduct";
 import AllBuyers from "../../Pages/DashBoard/AllBuyers/AllBuyers";
 import AllSellers from "../../Pages/DashBoard/AllSellers/AllSellers";
 import AllUsers from "../../Pages/DashBoard/AllUsers/AllUsers";
-import DashBoard from "../../Pages/DashBoard/DashBoard/DashBoard";
 import MyProducts from "../../Pages/DashBoard/MyProducts/MyProducts";
 import Payment from "../../Pages/DashBoard/Payment/Payment";
+import ReportedProducts from "../../Pages/DashBoard/ReportedProducts/ReportedProducts";
+import WishLists from "../../Pages/DashBoard/WishList/WishLists";
 import Home from "../../Pages/Home/Home/Home";
 import LogIn from "../../Pages/LogIn/LogIn";
 import MyOrders from "../../Pages/MyOrders/MyOrders";
@@ -19,10 +19,8 @@ import Products from "../../Pages/Products/Products";
 import DisplayError from "../../Pages/Shared/DisplayError/DisplayError";
 import SignUp from "../../Pages/SignUp/SignUp";
 import AdminRoutes from "../AdminRoutes/AdminRoutes";
-import SellerRoutes from "../SellerRoutes/SellerRoutes";
 import PrivateRoutes from "../PrivateRoutes/PrivateRoutes";
-import WishLists from "../../Pages/DashBoard/WishList/WishLists";
-import ReportedProducts from "../../Pages/DashBoard/ReportedProducts/ReportedProducts";
+import SellerRoutes from "../SellerRoutes/SellerRoutes";
 
 const Routes = createBrowserRouter([
   {
@@ -54,7 +52,7 @@ const Routes = createBrowserRouter([
         path: `/category/:id`,
         element: <Products></Products>,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/category/${params.id}`),
+          fetch(`https://products-resale-server.vercel.app/category/${params.id}`),
       },
     ],
   },
@@ -122,7 +120,7 @@ const Routes = createBrowserRouter([
         path: `/dashboard/payment/:id`,
         element: <Payment></Payment>,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/payorder/${params.id}`),
+          fetch(`https://products-resale-server.vercel.app/payorder/${params.id}`),
       },
       {
         path: `/dashboard/wishlists`,

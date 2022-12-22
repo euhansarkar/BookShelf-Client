@@ -5,7 +5,7 @@ import Routes from "./Routes/Routes/Routes";
 import { Toaster } from "react-hot-toast";
 
 function App() {
-  return <div className="">
+  return <div>
     <RouterProvider router={Routes}></RouterProvider>
     <Toaster/>
   </div>;

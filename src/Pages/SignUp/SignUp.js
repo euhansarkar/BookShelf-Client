@@ -1,10 +1,10 @@
 import { GoogleAuthProvider } from "firebase/auth";
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import login from "../../assets/images/signup/signup.svg";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
-import toast from "react-hot-toast";
 import useToken from "../../hooks/useToken";
 
 const SignUp = () => {
@@ -65,7 +65,7 @@ const SignUp = () => {
 
   const saveUserToDataBase = (name, email, role) => {
     const user = { name, email, role };
-    fetch(`http://localhost:5000/users`, {
+    fetch(`https://products-resale-server.vercel.app/users`, {
       method: `POST`,
       headers: {
         "Content-Type": `application/json`,

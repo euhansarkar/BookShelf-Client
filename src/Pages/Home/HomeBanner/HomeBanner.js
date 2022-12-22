@@ -11,7 +11,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import { Autoplay, Pagination, Navigation } from "swiper";
+import "swiper/css/effect-fade";
+
+import {EffectFade, Autoplay, Pagination, Navigation } from "swiper";
 
 const HomeBanner = () => {
   const bannerImg = [
@@ -54,14 +56,14 @@ const HomeBanner = () => {
         spaceBetween={30}
         centeredSlides={true}
         autoplay={{
-          delay: 5000,
+          delay: 10000,
           disableOnInteraction: false,
         }}
         pagination={{
           clickable: true,
         }}
-        navigation={true}
-        modules={[Autoplay, Pagination, Navigation]}
+        navigation={false}
+        modules={[EffectFade, Autoplay, Pagination, Navigation]}
         className="mySwiper"
       >
         {bannerImg.map((slider) => (

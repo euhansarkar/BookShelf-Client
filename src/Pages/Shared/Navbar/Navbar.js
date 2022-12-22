@@ -75,11 +75,15 @@ const Navbar = () => {
         <ul className="menu menu-horizontal p-0">{menuItems}</ul>
       </div>
       <div className="navbar-end">
-          <div className="avatar">
+          {
+            user?.email &&
+            <div className="avatar">
             <div className="w-8 mr-8 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
               <img src={avatar} alt="" />
             </div>
           </div>
+
+          }
       </div>
       <label
         tabIndex={2}

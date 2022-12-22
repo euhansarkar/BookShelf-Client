@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { json } from "react-router-dom";
-import CategoryNames from "./CategoryNames";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
-import { Pagination } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
 import "./Category.css";
+import CategoryNames from "./CategoryNames";
 const Category = () => {
   const [categoryData, setCategoryData] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:5000/categories`)
+    fetch(`https://products-resale-server.vercel.app/categories`)
       .then((res) => res.json())
       .then((data) => setCategoryData(data));
   }, []);

@@ -2,11 +2,11 @@ import React from "react";
 import './BannerItem.css'
 
 const BannerItem = ({slider}) => {
-    const {image, id, prev, next} = slider;
+    const {image, id} = slider;
   return (
     <div id={`slide${id}`} className="carousel-item relative w-full">
       <div className="carousel-img">
-        <img src={image} alt="" className="max-w-full rounded-lg" />
+        <img src={image} alt="" className="max-w-full" />
       </div>
       <div className="absolute flex justify-end transform -translate-y-1/2 left-24 top-1/4">
         <h1 className=" text-3xl md:text-4xl lg:text-6xl font-bold text-white capitalize">
@@ -22,14 +22,14 @@ const BannerItem = ({slider}) => {
           <span className="text-red-400"><button className="btn btn-outline">get winter offers</button></span>
         </h1>
       </div>
-      <div className="absolute hidden lg:block flex justify-end transform -translate-y-1/2 w-2/5 left-24 top-1/2">
+      <div className="absolute hidden lg:block justify-end transform -translate-y-1/2 w-2/5 left-24 top-1/2">
         <p className="text-xl text-white">
           There are many variations of passages of available, but the majority
           have suffered alteration in some form
         </p>
       </div>
       <div className="absolute flex justify-start transform -translate-y-1/2 w-2/5 left-24 top-3/4">
-        <button className="btn btn-error btn-warning mr-5">buy now</button>
+        <button className="btn  btn-warning mr-5">buy now</button>
       </div>
     </div>
   );

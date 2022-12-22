@@ -18,7 +18,7 @@ const MyProducts = () => {
     queryKey: [`products`, user?.email],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/productsme?email=${user?.email}`
+        `https://products-resale-server.vercel.app/productsme?email=${user?.email}`
       );
       const data = await res.json();
       return data;
@@ -36,7 +36,7 @@ const MyProducts = () => {
   };
 
   const handleDeleteProduct = (product) => {
-    fetch(`http://localhost:5000/products/${product._id}`, {
+    fetch(`https://products-resale-server.vercel.app/products/${product._id}`, {
       method: `DELETE`,
     })
       .then((res) => res.json())
@@ -50,7 +50,7 @@ const MyProducts = () => {
   };
 
   const handleAdvertise = (id) => {
-    fetch(`http://localhost:5000/advertiseTrue/${id}`, {
+    fetch(`https://products-resale-server.vercel.app/advertiseTrue/${id}`, {
       method: `PUT`,
     })
       .then((res) => res.json())
@@ -64,7 +64,7 @@ const MyProducts = () => {
   };
 
   const handleAdvertiseFalse = (id) => {
-    fetch(`http://localhost:5000/advertiseFalse/${id}`, {
+    fetch(`https://products-resale-server.vercel.app/advertiseFalse/${id}`, {
       method: `PUT`,
     })
       .then((res) => res.json())

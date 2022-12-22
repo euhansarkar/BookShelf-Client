@@ -1,7 +1,6 @@
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useQuery } from "@tanstack/react-query";
-import { data } from "autoprefixer";
 import React from "react";
 import { useLoaderData } from "react-router-dom";
 import CheckOutForm from "./CheckOutForm";
@@ -15,7 +14,7 @@ const Payment = () => {
     queryKey: [`order`, orderData?.product_id],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/products/${orderData?.product_id}`
+        `https://products-resale-server.vercel.app/products/${orderData?.product_id}`
       );
       const data = await res.json();
       return data;

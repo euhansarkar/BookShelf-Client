@@ -16,7 +16,7 @@ const WishLists = () => {
     queryKey: [`wishlists`, email],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/wishlists?email=${email}`,
+        `https://products-resale-server.vercel.app/wishlists?email=${email}`,
         {
           headers: {
             authorization: `bearer ${localStorage.getItem(`accessToken`)}`,

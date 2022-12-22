@@ -1,5 +1,4 @@
-import React from "react";
-import { useContext } from "react";
+import React, { useContext } from "react";
 import toast from "react-hot-toast";
 import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
 
@@ -38,7 +37,7 @@ const ProductBookingModal = ({ chooseProduct, setChooseProduct }) => {
         isPaid: false,
     }
 
-    fetch(`http://localhost:5000/orders`, {
+    fetch(`https://products-resale-server.vercel.app/orders`, {
         method: `POST`,
         headers: {
             "Content-Type": `application/json`
