@@ -111,7 +111,7 @@ const CheckOutForm = ({ product, orderData }) => {
             style: {
               base: {
                 fontSize: "16px",
-                color: "#424770",
+                color: "#fff",
                 "::placeholder": {
                   color: "#aab7c4",
                 },
