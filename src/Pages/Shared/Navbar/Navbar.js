@@ -23,18 +23,10 @@ const Navbar = () => {
 
   const menuItems = (
     <>
-      <li className="font-bold">
-        <Link to={`/`}>Home</Link>
-      </li>
-      <li className="font-bold">
-        <Link to={`/blogs`}>Blogs</Link>
-      </li>
-      <li className="font-bold">
-        <Link to={`/about`}>About</Link>
-      </li>
-      <li className="font-bold">
-        <Link to={`/dashboard`}>DashBoard</Link>
-      </li>
+      <div className="flex items-center justify-center">
+        <input type="search" placeholder="search products" name="" id="" className="input w-80 input-bordered focus:outline-none" />
+        <button className="btn btn-error ml-2">search</button>
+      </div>
     </>
   );
 
@@ -65,7 +57,7 @@ const Navbar = () => {
             {menuItems}
           </ul>
         </div>
-        <Link className="btn btn-ghost normal-case text-xl absolute right-[230px] -top-[65px]">
+        <Link to={`/`} className="btn btn-ghost normal-case text-xl absolute right-[230px] -top-[65px]">
           <img src={logo} className="w-40" alt="" />
         </Link>
       </div>
@@ -76,7 +68,8 @@ const Navbar = () => {
         {user?.email ? (
           <Menu as="div" className="relative inline-block text-left">
             <div>
-              <Menu.Button className={`flex items-center jusitfy-center`}>
+              <Menu.Button className={`flex items-center jusitfy-evenly`}>
+              <span className="mr-3">My Acc</span>
                 <div className="avatar">
                   <div className="w-8 mr-8 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                     <img src={avatar} alt="" />
@@ -108,6 +101,21 @@ const Navbar = () => {
                         )}
                       >
                         signed in as <strong>{user.email && user.email}</strong>
+                      </Link>
+                    )}
+                  </Menu.Item>
+                  <Menu.Item>
+                    {({ active }) => (
+                      <Link
+                        to="/dashboard"
+                        className={classNames(
+                          active
+                            ? "bg-gray-100 text-gray-900"
+                            : "text-gray-700",
+                          "block px-4 py-2 text-sm"
+                        )}
+                      >
+                        Dashboard
                       </Link>
                     )}
                   </Menu.Item>
