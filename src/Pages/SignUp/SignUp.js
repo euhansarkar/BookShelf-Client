@@ -28,7 +28,7 @@ const SignUp = () => {
 
 
   const handleSignUp = (data) => {
-    console.log(data);
+    ;
     const { email, name, role, password } = data;
 
     createUser(email, password)
@@ -74,7 +74,7 @@ const SignUp = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        ;
         if (data.acknowledged) {
           setCreatedUserEmail(email);
           toast.success(`user created successfully`);

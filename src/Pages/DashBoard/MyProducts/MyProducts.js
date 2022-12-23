@@ -41,7 +41,7 @@ const MyProducts = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        ;
         if (data.deletedCount > 0) {
           toast.success(`product ${product.title} deleted successfully`);
           refetch();
@@ -55,7 +55,7 @@ const MyProducts = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        ;
         if (data.modifiedCount > 0) {
           refetch();
           toast.success(`advertise on`);
@@ -69,7 +69,7 @@ const MyProducts = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        ;
         if(data.modifiedCount > 0){
           refetch();
           toast.success(`advertise off`);

@@ -17,7 +17,7 @@ const AddProduct = () => {
   const navigate = useNavigate();
 
   const handleAddProduct = (data) => {
-    console.log(data);
+    ;
     const {
       category_name,
       title,

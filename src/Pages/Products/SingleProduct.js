@@ -6,7 +6,7 @@ import { RiShoppingCartLine } from "react-icons/ri";
 import toast from "react-hot-toast";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 
-const SingleProduct = ({ book, setChooseProduct }) => {
+const SingleProduct = ({ book, setChooseProduct, chooseProduct }) => {
   const { user } = useContext(AuthContext);
 
   const {
@@ -26,7 +26,6 @@ const SingleProduct = ({ book, setChooseProduct }) => {
     isReported,
   } = book;
 
-  console.log(typeof posted);
   // const {data: seller = []} = useQuery({
   //   queryKey: [`seller`, seller_email],
   //   queryFn: async() => {
@@ -37,6 +36,7 @@ const SingleProduct = ({ book, setChooseProduct }) => {
   // })
 
   // console.log(seller);
+  // console.log(chooseProduct);
 
   const usedDays = (yearsOfUse) => {
     const milliSeconds = new Date().getTime() - new Date(yearsOfUse).getTime();
@@ -58,7 +58,7 @@ const SingleProduct = ({ book, setChooseProduct }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        ;
         if (data.acknowledged) {
           toast.success(`${title} book is successfully added to your wishlist`);
         }
@@ -71,7 +71,7 @@ const SingleProduct = ({ book, setChooseProduct }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        ;
         if (data.modifiedCount > 0) {
           toast.success(`your report has submitted successfully to the admin!`);
         }
@@ -113,7 +113,7 @@ const SingleProduct = ({ book, setChooseProduct }) => {
                 htmlFor="productBookingModal"
                 onClick={() => setChooseProduct(book)}
               >
-              <RiShoppingCartLine className="text-gray-800 text-2xl" />
+                <RiShoppingCartLine className="text-gray-800 text-2xl" />
               </label>
             </div>
             <div className="bg-white p-2 rounded-full mx-2 hover:bg-gray-400">
