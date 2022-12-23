@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@headlessui/react": "^1.7.7",
+    "@heroicons/react": "^2.0.13",
     "@stripe/react-stripe-js": "^1.15.0",
     "@stripe/stripe-js": "^1.44.1",
     "@tanstack/react-query": "^4.16.1",
@@ -12,6 +14,7 @@
     "aos": "^2.3.4",
     "daisyui": "^2.42.0",
     "firebase": "^9.14.0",
+    "heroicons": "^2.0.13",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.39.5",
