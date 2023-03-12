@@ -6,7 +6,7 @@ import Asked from './Asked/Asked';
 
 const Home = () => {
     return (
-        <div className='bg-[]'>
+        <div >
             <HomeBanner></HomeBanner>
             <Category></Category>
             <AdvertisedProducts></AdvertisedProducts>

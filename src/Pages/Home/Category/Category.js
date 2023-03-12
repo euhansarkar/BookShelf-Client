@@ -34,10 +34,9 @@ const Category = () => {
         className="mySwiper"
       >
         {categoryData.map((category) => (
-          <SwiperSlide className="my-20 lg:mx-8">
+          <SwiperSlide className="my-20 lg:mx-8" key={category._id}>
             <CategoryNames
               category={category}
-              key={category._id}
             ></CategoryNames>
           </SwiperSlide>
         ))}

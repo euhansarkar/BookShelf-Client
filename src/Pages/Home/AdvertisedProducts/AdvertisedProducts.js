@@ -28,7 +28,7 @@ const AdvertisedProducts = () => {
         featured products
       </h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 my-20 mx-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8 my-12 w-11/12 mx-auto">
         {advertisedProducts.map((book) => (
           <SingleProduct
             book={book}

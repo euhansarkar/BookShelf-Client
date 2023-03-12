@@ -26,18 +26,6 @@ const SingleProduct = ({ book, setChooseProduct, chooseProduct }) => {
     isReported,
   } = book;
 
-  // const {data: seller = []} = useQuery({
-  //   queryKey: [`seller`, seller_email],
-  //   queryFn: async() => {
-  //     const res = await fetch(`https://products-resale-server.vercel.app/userbyEmail/${seller_email}`);
-  //     const data = await res.json();
-  //     return data;
-  //   }
-  // })
-
-  // console.log(seller);
-  // console.log(chooseProduct);
-
   const usedDays = (yearsOfUse) => {
     const milliSeconds = new Date().getTime() - new Date(yearsOfUse).getTime();
     return parseInt(milliSeconds / (24 * 60 * 60 * 1000));
@@ -79,12 +67,12 @@ const SingleProduct = ({ book, setChooseProduct, chooseProduct }) => {
   };
 
   return (
-    <div className="w-full h-fit">
+    <div className="w-full h-fit bg-slate-300 rounded-md">
       <div className=" group">
-        <div className="text-center flex flex-col w-72 h-80 overflow-hidden shadow-md rounded-lg  relative">
+        <div className="text-center flex flex-col w-full h-80 overflow-hidden shadow-md rounded-lg  relative">
           <div className="items-center">
-            <div className="flex items-center justify-center mb-2">
-              <img src={img} alt="" className="h-48 w-30 object-top" />
+            <div className="flex items-center px-5 justify-center mb-2">
+              <img src={img} alt={title} className="h-48 w-30 object-top pt-6" />
             </div>
             <h2 className="mb-1 text-xl font-semibold">
               {title.length > 50 ? title.slice(0, 50) : title}
@@ -98,7 +86,7 @@ const SingleProduct = ({ book, setChooseProduct, chooseProduct }) => {
               <strong>${resalePrice}.00</strong>
             </p>
           </div>
-          <div className="absolute h-1/2 w-full bg-black/80 flex items-center justify-center -bottom-10 group-hover:bottom-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
+          <div className="absolute h-3/5 w-full bg-black/50 flex items-center justify-center -bottom-10 group-hover:bottom-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
             <div className="bg-white text-red-700 p-2 rounded-full mx-2 hover:bg-red-700 hover:text-white">
               <FaRegHeart
                 onClick={() => handleWishList(_id)}

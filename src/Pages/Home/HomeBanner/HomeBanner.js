@@ -67,8 +67,8 @@ const HomeBanner = () => {
         className="mySwiper"
       >
         {bannerImg.map((slider) => (
-          <SwiperSlide>
-            <BannerItem slider={slider} key={slider.id}></BannerItem>
+          <SwiperSlide key={slider.id}>
+            <BannerItem slider={slider} ></BannerItem>
           </SwiperSlide>
         ))}
       </Swiper>

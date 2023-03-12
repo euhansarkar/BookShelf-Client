@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 const SingleOrder = ({ order, index, setDeleteOrder }) => {
   const { _id, product_id, isPaid } = order;
 
+  
   const { data: product = [] } = useQuery({
     queryKey: [`order`, product_id],
     queryFn: async () => {

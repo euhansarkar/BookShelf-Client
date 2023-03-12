@@ -46,7 +46,7 @@ const WishLists = () => {
             </tr>
           </thead>
           <tbody>
-            {wishlists.map((wish, index) => <WishListItem wish={wish} index={index}></WishListItem>)}
+            {wishlists.map((wish, index) => <WishListItem key={index} wish={wish} index={index}></WishListItem>)}
           </tbody>
         </table>
       </div>
