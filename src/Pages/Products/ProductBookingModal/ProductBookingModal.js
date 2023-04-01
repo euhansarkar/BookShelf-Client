@@ -69,8 +69,8 @@ const ProductBookingModal = ({ chooseProduct, setChooseProduct }) => {
           >
             ✕
           </label>
-          <h3 className="text-lg font-bold text-white">{chooseProduct.title}</h3>
-          <form onSubmit={handleProductBooking} className="mt-6 text-white">
+          <h3 className="text-lg font-bold">{chooseProduct.title}</h3>
+          <form onSubmit={handleProductBooking} className="mt-6">
             <input
               type="text"
               defaultValue={title}

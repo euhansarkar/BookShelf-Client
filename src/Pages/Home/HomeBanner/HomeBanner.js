@@ -51,7 +51,7 @@ const HomeBanner = () => {
 
   return (
     <>
-      <div className="carousel  w-full h-3/5"></div>
+      {/* <div className="carousel  w-full h-3/5"></div>
       <Swiper
         spaceBetween={30}
         centeredSlides={true}
@@ -71,7 +71,8 @@ const HomeBanner = () => {
             <BannerItem slider={slider} ></BannerItem>
           </SwiperSlide>
         ))}
-      </Swiper>
+      </Swiper> */}
+      <BannerItem/>
     </>
   );
 };
