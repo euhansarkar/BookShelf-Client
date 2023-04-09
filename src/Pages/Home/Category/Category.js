@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Pagination } from "swiper";
+import { Pagination, Navigation } from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -14,34 +14,11 @@ const Category = () => {
   }, []);
 
   return (
-    <>
-      <Swiper 
-        breakpoints={{
-          640: {
-            width: 640,
-            slidesPerView: 1,
-          },
-          768: {
-            width: 768,
-            slidesPerView: 2,
-          },
-        }}
-        spaceBetween={20}
-        pagination={{
-          clickable: true,
-        }}
-        modules={[Pagination]}
-        className="mySwiper"
-      >
-        {categoryData.map((category) => (
-          <SwiperSlide className="my-20 lg:mx-8" key={category._id}>
-            <CategoryNames
-              category={category}
-            ></CategoryNames>
-          </SwiperSlide>
-        ))}
-      </Swiper>
-    </>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 my-12">
+      {categoryData.map((category) => (
+        <CategoryNames category={category} key={category._id}></CategoryNames>
+      ))}
+    </div>
   );
 };
 

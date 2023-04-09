@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
 import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
 import WishListItem from "./WishListItem";
+import { Helmet } from "react-helmet";
 
 const WishLists = () => {
   const {
@@ -34,6 +35,10 @@ const WishLists = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>wishlists - BookShelf</title>
+        <meta name="description" content="Nested component" />
+      </Helmet>
       <h2 className="text-4xl my-6 text-center font-bold">your wishlists</h2>
       <div className="overflow-x-auto">
         <table className="table w-full">
@@ -46,7 +51,13 @@ const WishLists = () => {
             </tr>
           </thead>
           <tbody>
-            {wishlists.map((wish, index) => <WishListItem key={index} wish={wish} index={index}></WishListItem>)}
+            {wishlists.map((wish, index) => (
+              <WishListItem
+                key={index}
+                wish={wish}
+                index={index}
+              ></WishListItem>
+            ))}
           </tbody>
         </table>
       </div>

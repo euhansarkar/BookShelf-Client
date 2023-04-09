@@ -24,7 +24,7 @@ const AdvertisedProducts = () => {
 
   return (
     <div>
-      <h2 className="font-bold text-4xl md:text-5xl text-center capitalize">
+      <h2 className="font-bold text-2xl md:text-3xl text-center capitalize">
         featured products
       </h2>
 

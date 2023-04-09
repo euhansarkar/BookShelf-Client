@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
+import { Helmet } from "react-helmet";
 
 const AddProduct = () => {
   const { user } = useContext(AuthContext);
@@ -96,6 +97,10 @@ const AddProduct = () => {
 
   return (
     <div>
+    <Helmet>
+        <title>add product - BookShelf</title>
+        <meta name="description" content="Nested component" />
+      </Helmet>
       <h2 className="text-5xl font-bold text-center my-5 text-primary capitalize">add a product</h2>
       <form
         className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mx-6 space-x-3 mt-8"

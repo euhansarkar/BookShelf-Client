@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Tailwind CSS Product Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://unpkg.com/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+  <div class="container mx-auto px-6 py-16">
+    <div class="md:flex md:items-center">
+      <div class="w-full h-64 md:w-1/2 lg:h-96">
+        <img class="h-full w-full rounded-md object-cover max-w-lg mx-auto" src="https://images.unsplash.com/photo-1591650660227-56d99c59bcea?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cG9zdHBvcGVyfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Nike Air">
+      </div>
+      <div class="w-full md:w-1/2 py-10">
+        <div class="md:ml-40">
+          <h1 class="text-gray-700 uppercase text-2xl mb-5">Nike Air</h1>
+          <div class="mt-2">
+            <span class="text-gray-500">
+              $120
+            </span>
+            <span class="text-gray-600 ml-3">
+              $150
+            </span>
+          </div>
+          <div class="mt-2">
+            <label class="text-gray-700 text-sm" for="count">Quantity:</label>
+            <input class="form-input rounded-md shadow-sm mt-1 block w-full" id="count" type="number" value="1">
+          </div>
+          <div class="flex items-center mt-6">
+            <button class="bg-purple-700 py-2 px-4 text-white rounded-md">
+              Buy Now
+            </button>
+            <button class="mx-2 text-gray-600 border rounded-md p-2 hover:bg-purple-200 focus:outline-none">
+              Add to Cart
+            </button>
+          </div>
+          <p class="text-gray-600 mt-6">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempore vitae animi voluptates sint error, asperiores perspiciatis at labore debitis.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

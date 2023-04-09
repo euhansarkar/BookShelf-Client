@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import login from "../../assets/images/signup/signup.svg";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import useToken from "../../hooks/useToken";
+import { Helmet } from "react-helmet";
 
 const SignUp = () => {
   const [signUpError, setSignUpError] = useState(null);
@@ -21,14 +22,11 @@ const SignUp = () => {
 
   const { createUser, signInWithGoogle, updateUser } = useContext(AuthContext);
 
-
-  if(token){
+  if (token) {
     navigate(`/`);
   }
 
-
   const handleSignUp = (data) => {
-    ;
     const { email, name, role, password } = data;
 
     createUser(email, password)
@@ -74,7 +72,6 @@ const SignUp = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        ;
         if (data.acknowledged) {
           setCreatedUserEmail(email);
           toast.success(`user created successfully`);
@@ -84,6 +81,10 @@ const SignUp = () => {
 
   return (
     <div className="hero min-h-screen bg-base-200">
+      <Helmet>
+        <title>signup - BookShelf</title>
+        <meta name="description" content="Nested component" />
+      </Helmet>
       <div className="hero-content flex  flex-col lg:flex-row-reverse gap-6">
         <div className="text-center w-1/2 hidden lg:block ml-32 lg:text-left">
           <img src={login} className="w-96" alt="" />

@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { useLoaderData } from "react-router-dom";
 import CheckOutForm from "./CheckOutForm";
+import { Helmet } from "react-helmet";
 
 const stripePromise = loadStripe(process.env.REACT_APP_PK);
 
@@ -26,6 +27,10 @@ const Payment = () => {
 
   return (
     <div>
+    <Helmet>
+        <title>payment - BookShelf</title>
+        <meta name="description" content="Nested component" />
+      </Helmet>
       <h2 className="my-5 font-bold text-primary text-3xl text-center">
         payment for {product.title}
       </h2>

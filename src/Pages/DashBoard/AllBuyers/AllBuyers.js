@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import { Helmet } from "react-helmet";
 import toast from "react-hot-toast";
 
 const AllUsers = () => {
@@ -35,6 +36,10 @@ const AllUsers = () => {
 
   return (
     <div>
+    <Helmet>
+        <title>all buyers - BookShelf</title>
+        <meta name="description" content="Nested component" />
+      </Helmet>
       <h2 className="text-4xl text-center font-semibold my-6">
         this is all buyers page
       </h2>

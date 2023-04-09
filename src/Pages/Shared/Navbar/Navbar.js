@@ -69,7 +69,6 @@ const Navbar = () => {
           <Menu as="div" className="relative inline-block text-left">
             <div>
               <Menu.Button className={`flex items-center jusitfy-evenly`}>
-              <span className="mr-3">My Acc</span>
                 <div className="avatar">
                   <div className="w-8 mr-8 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                     <img src={avatar} alt="" />

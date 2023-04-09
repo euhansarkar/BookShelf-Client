@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import toast from "react-hot-toast";
 import ConfirmationModal from "../../Shared/ConfirmationModal/ConfirmationModal";
 import ReportedItem from "./ReportedItem";
+import { Helmet } from "react-helmet";
 
 const ReportedProducts = () => {
   const [deleteReportedProduct, setDeleteReportedProduct] = useState(null);
@@ -37,6 +38,10 @@ const ReportedProducts = () => {
   };
   return (
     <div>
+    <Helmet>
+        <title>reported products - BookShelf</title>
+        <meta name="description" content="Nested component" />
+      </Helmet>
       <h2 className="text-4xl my-6 font-bold text-center">
         all reported products
       </h2>

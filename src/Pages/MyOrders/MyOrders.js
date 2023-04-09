@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import SingleOrder from "../DashBoard/SingleOrde/SingleOrder";
 import ConfirmationModal from "../Shared/ConfirmationModal/ConfirmationModal";
+import { Helmet } from "react-helmet";
 
 const MyOrders = () => {
   const {
@@ -50,6 +51,10 @@ const MyOrders = () => {
   return (
     <>
       <div>
+      <Helmet>
+        <title>my orders - BookShelf</title>
+        <meta name="description" content="Nested component" />
+      </Helmet>
         <h2 className="my-5 font-semibold text-4xl text-center">my orders</h2>
         <div className="overflow-x-auto">
           <div className="overflow-x-auto w-full">

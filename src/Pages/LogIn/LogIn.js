@@ -5,6 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import login from "../../assets/images/login/login.svg";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import useToken from "../../hooks/useToken";
+import { Helmet } from "react-helmet";
 
 const LogIn = () => {
   const [logInError, setLogInError] = useState(null);
@@ -54,6 +55,10 @@ const LogIn = () => {
 
   return (
     <div className="hero min-h-screen bg-base-200">
+    <Helmet>
+        <title>login - BookShelf</title>
+        <meta name="description" content="Nested component" />
+      </Helmet>
       <div className="hero-content flex  flex-col lg:flex-row-reverse gap-6">
         <div className="text-center w-1/2 hidden lg:block ml-32 lg:text-left">
           <img src={login} className="w-96" alt="" />

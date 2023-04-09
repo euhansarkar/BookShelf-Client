@@ -1,8 +1,13 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 
 const Blogs = () => {
   return (
     <div>
+    <Helmet>
+        <title>blogs - BookShelf</title>
+        <meta name="description" content="Nested component" />
+      </Helmet>
       <h2 className="my-6  text-center font-bold text-4xl">Blogs</h2>
       <div className="grid gap-20 grid-cols-1 md:grid-cols-2 lg:my-20 md:text:xl">
         <div className="card w-full  shadow-xl">

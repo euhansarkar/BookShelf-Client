@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
 import ConfirmationModal from "../../Shared/ConfirmationModal/ConfirmationModal";
 import MySingleProduct from "./MySingleProduct";
+import { Helmet } from "react-helmet";
 
 const MyProducts = () => {
   const [advertised, setAdvertised] = useState(false);
@@ -81,6 +82,10 @@ const MyProducts = () => {
 
   return (
     <div>
+    <Helmet>
+        <title>my products - BookShelf</title>
+        <meta name="description" content="Nested component" />
+      </Helmet>
       <h2 className="text-5xl font-bold text-center my-4"> My Products </h2>
       <div className="overflow-x-auto">
         <table className="table table-zebra w-full">

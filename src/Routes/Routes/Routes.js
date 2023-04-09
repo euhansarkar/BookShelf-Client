@@ -21,6 +21,8 @@ import SignUp from "../../Pages/SignUp/SignUp";
 import AdminRoutes from "../AdminRoutes/AdminRoutes";
 import PrivateRoutes from "../PrivateRoutes/PrivateRoutes";
 import SellerRoutes from "../SellerRoutes/SellerRoutes";
+import { Helmet } from "react-helmet";
+import ShowDetails from "../../Pages/Products/ShowDetails/ShowDetails";
 
 const Routes = createBrowserRouter([
   {
@@ -52,7 +54,17 @@ const Routes = createBrowserRouter([
         path: `/category/:id`,
         element: <Products></Products>,
         loader: ({ params }) =>
-          fetch(`https://products-resale-server.vercel.app/category/${params.id}`),
+          fetch(
+            `https://products-resale-server.vercel.app/category/${params.id}`
+          ),
+      },
+      {
+        path: `/products/:id`,
+        element: <ShowDetails></ShowDetails>,
+        loader: ({ params }) =>
+          fetch(
+            `https://products-resale-server.vercel.app/products/${params.id}`
+          ),
       },
     ],
   },
@@ -120,7 +132,9 @@ const Routes = createBrowserRouter([
         path: `/dashboard/payment/:id`,
         element: <Payment></Payment>,
         loader: ({ params }) =>
-          fetch(`https://products-resale-server.vercel.app/payorder/${params.id}`),
+          fetch(
+            `https://products-resale-server.vercel.app/payorder/${params.id}`
+          ),
       },
       {
         path: `/dashboard/wishlists`,

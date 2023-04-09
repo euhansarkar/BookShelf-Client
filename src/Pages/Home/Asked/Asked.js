@@ -3,12 +3,12 @@ import React from "react";
 const Asked = () => {
   return (
     <div>
-      <section className="dark:bg-gray-800  dark:text-gray-100">
+      <section className="bg-gray-100">
         <div className="container flex flex-col justify-center px-4 py-8 mx-auto md:p-8">
-          <h2 className="text-2xl font-semibold sm:text-4xl">
+          <h2 className="text-2xl text-center font-semibold sm:text-4xl">
             Frequently Asked Questions
           </h2>
-          <p className="mt-4 mb-8 dark:text-gray-400">
+          <p className="mt-4 mb-8 dark:text-gray-400 text-center">
             Sagittis tempor donec id vestibulum viverra. Neque condimentum
             primis orci at lacus amet bibendum.
           </p>
