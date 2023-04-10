@@ -23,9 +23,24 @@ const Navbar = () => {
 
   const menuItems = (
     <>
-      <div className="flex items-center justify-center">
-        <input type="search" placeholder="search products" name="" id="" className="input w-80 input-bordered focus:outline-none" />
-        <button className="btn btn-error ml-2">search</button>
+      <div className="flex items-center justify-between items-center gap-x-16">
+        {/* <input type="search" placeholder="search products" name="" id="" className="input w-80 input-bordered focus:outline-none" />
+        <button className="btn btn-error ml-2">search</button> */}
+        <Link to={`/`}>
+          <button className="font-semibold text-md">Home</button>
+        </Link>
+        <Link to={`/blogs`}>
+          <button className="font-semibold text-md">Blogs</button>
+        </Link>
+        <Link to={`/about`}>
+          <button className="font-semibold text-md">About</button>
+        </Link>
+        <Link to={`/featured`}>
+          <button className="font-semibold text-md">Featured</button>
+        </Link>
+        <Link to={`/contact`}>
+          <button className="font-semibold text-md">Contact</button>
+        </Link>
       </div>
     </>
   );
@@ -57,7 +72,10 @@ const Navbar = () => {
             {menuItems}
           </ul>
         </div>
-        <Link to={`/`} className="btn btn-ghost normal-case text-xl absolute right-[230px] -top-[65px]">
+        <Link
+          to={`/`}
+          className="btn btn-ghost normal-case text-xl absolute right-[230px] -top-[65px]"
+        >
           <img src={logo} className="w-40" alt="" />
         </Link>
       </div>
@@ -172,7 +190,9 @@ const Navbar = () => {
             </Transition>
           </Menu>
         ) : (
-          <Link to={`/login`}><button className="btn btn-primary btn-sm mr-10"  >log in</button></Link>
+          <Link to={`/login`}>
+            <button className="btn btn-primary btn-sm mr-10">log in</button>
+          </Link>
         )}
       </div>
       <label

@@ -23,6 +23,7 @@ import PrivateRoutes from "../PrivateRoutes/PrivateRoutes";
 import SellerRoutes from "../SellerRoutes/SellerRoutes";
 import { Helmet } from "react-helmet";
 import ShowDetails from "../../Pages/Products/ShowDetails/ShowDetails";
+import Contact from "../../Pages/Home/Contact/Contact/Contact";
 
 const Routes = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ const Routes = createBrowserRouter([
       {
         path: `/about`,
         element: <About></About>,
+      },
+      {
+        path: `/contact`,
+        element: <Contact/>,
       },
       {
         path: `/category/:id`,
