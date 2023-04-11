@@ -1,10 +1,26 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useLoaderData, useParams } from "react-router-dom";
 import ProductSummery from "../ProductSummery/ProductSummery";
+import Modal from "react-modal";
+import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
+import { toast } from "react-hot-toast";
+
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+  },
+};
 
 const ShowDetails = () => {
   const details = useLoaderData();
+  const [isOpen, setIsOpen] = useState(false);
   const [count, setCount] = useState(0);
+  const {user} = useContext(AuthContext);
   const {
     author,
     category_name,
@@ -21,6 +37,48 @@ const ShowDetails = () => {
     yearsOfUse,
     _id,
   } = details;
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  
+  const handleProductBooking = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const phone = form.phone.value;
+    const location = form.location.value;
+
+    const booking = {
+        displayName: user?.displayName,
+        email: user?.email,
+        buyer_phone: phone,
+        buyer_location: location,
+        order_date: new Date(),
+        product_id: _id,
+        isPaid: false,
+    }
+
+    fetch(`https://products-resale-server.vercel.app/orders`, {
+        method: `POST`,
+        headers: {
+            "Content-Type": `application/json`
+        },
+        body: JSON.stringify(booking)
+    })
+    .then(res => res.json())
+    .then(data => {
+        if(data.acknowledged){
+            setIsOpen(false);
+            toast.success(`${title} is successfully on your cartlist!`)
+        }
+    })
+
+  };
 
   return (
     <>
@@ -58,14 +116,16 @@ const ShowDetails = () => {
               <div className="mt-0">
                 <span className="text-gray-600">location: {location}</span>
               </div>
-              <div className="mt-2 flex items-center gap-6">
+              <div className="mt-2 flex items-center flex-wrap gap-6">
                 <button
                   className="btn btn-sm  bg-amber-500"
                   onClick={() => setCount(count + 1)}
                 >
                   decrement
                 </button>
-                <h2 className="font-3xl">{count}</h2>
+                <h2 className="font-3xl px-4 border border-amber-400">
+                  {count}
+                </h2>
                 <button
                   onClick={() => setCount(count - 1)}
                   className="btn btn-sm 
@@ -74,10 +134,66 @@ const ShowDetails = () => {
                   decrement
                 </button>
               </div>
-              <div className="flex items-center mt-6">
-                <button className="bg-purple-700 py-2 px-4 text-white rounded-md capitalize">
+              <div className="flex items-center mt-6 relative">
+                <button
+                  onClick={openModal}
+                  className="bg-purple-700 py-2 px-4 text-white rounded-md capitalize"
+                >
                   add to cart
                 </button>
+                <Modal
+                  isOpen={isOpen}
+                  onRequestClose={closeModal}
+                  style={customStyles}
+                  contentLabel="Example Modal"
+                  className="absolute top-1/4 left-1/2 w-1/3 h-1/2 bg-white"
+                >
+                  <form onSubmit={handleProductBooking} className="mt-6">
+                    <input
+                      type="text"
+                      defaultValue={title}
+                      disabled
+                      className="input  w-full input-bordered my-2"
+                    />
+                    <input
+                      type="text"
+                      defaultValue={resalePrice}
+                      disabled
+                      className="input w-full input-bordered my-2"
+                    />
+                    <input
+                      type="text"
+                      defaultValue={user?.displayName}
+                      disabled
+                      className="input w-full input-bordered my-2"
+                    />
+                    <input
+                      type="text"
+                      defaultValue={user?.email}
+                      disabled
+                      className="input w-full input-bordered my-2"
+                    />
+                    <input
+                      type="text"
+                      name="phone"
+                      placeholder="your phone number"
+                      className="input w-full input-bordered my-2"
+                    />
+                    <input
+                      type="text"
+                      name="location"
+                      placeholder="your meeting location"
+                      className="input w-full input-bordered my-2"
+                    />
+                    <br />
+                    <input
+                      type="submit"
+                      value="submit"
+                      className="btn btn-accent w-full mt-4"
+                    />
+                  </form>
+                  <button onClick={closeModal}>close</button>
+                </Modal>
               </div>
             </div>
           </div>

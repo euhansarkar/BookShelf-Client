@@ -4,8 +4,10 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import SingleProduct from "../../Products/SingleProduct";
 import "swiper/css";
 import { Link } from "react-router-dom";
+import ProductBookingModal from "../../Products/ProductBookingModal/ProductBookingModal";
 
 const ShowCategoryTwo = () => {
+  const [chooseProduct, setChooseProduct] = useState(null);
   const [booksData, setBooksData] = useState([]);
   useEffect(() => {
     fetch(`https://products-resale-server.vercel.app/products/travel`)
@@ -19,7 +21,14 @@ const ShowCategoryTwo = () => {
     <>
       <div className="flex items-center justify-between flex-wrap mx-8">
         <span className="font-bold text-3xl capitalize">travel books</span>
-        {categoryName && <Link className="btn text-amber-400 " to={`/category/${categoryName}`}>see more</Link>}
+        {categoryName && (
+          <Link
+            className="btn text-amber-400 "
+            to={`/category/${categoryName}`}
+          >
+            see more
+          </Link>
+        )}
       </div>
       <Swiper
         breakpoints={{
@@ -49,11 +58,24 @@ const ShowCategoryTwo = () => {
         className="mySwiper"
       >
         {booksData.map((book) => (
-          <SwiperSlide className="mb-20 mt-6 px-8 md:px-0 md:mx-8" key={book._id}>
-            <SingleProduct book={book} />
+          <SwiperSlide
+            className="mb-20 mt-6 px-8 md:px-0 md:mx-8"
+            key={book._id}
+          >
+            <SingleProduct
+              book={book}
+              chooseProduct={chooseProduct}
+              setChooseProduct={setChooseProduct}
+            />
           </SwiperSlide>
         ))}
       </Swiper>
+      {chooseProduct && (
+        <ProductBookingModal
+          chooseProduct={chooseProduct}
+          setChooseProduct={setChooseProduct}
+        ></ProductBookingModal>
+      )}
     </>
   );
 };

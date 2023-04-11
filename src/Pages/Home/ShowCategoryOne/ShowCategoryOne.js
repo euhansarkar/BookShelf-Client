@@ -4,8 +4,10 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import SingleProduct from "../../Products/SingleProduct";
 import "swiper/css";
 import { Link } from "react-router-dom";
+import ProductBookingModal from "../../Products/ProductBookingModal/ProductBookingModal";
 
 const ShowCategoryOne = () => {
+  const [chooseProduct, setChooseProduct] = useState(null);
   const [booksData, setBooksData] = useState([]);
   useEffect(() => {
     fetch(`https://products-resale-server.vercel.app/products/comic`)
@@ -50,10 +52,16 @@ const ShowCategoryOne = () => {
       >
         {booksData.map((book) => (
           <SwiperSlide className="mb-20 mt-6 px-8 md:px-0 md:mx-8" key={book._id}>
-            <SingleProduct book={book} />
+            <SingleProduct book={book} chooseProduct={chooseProduct} setChooseProduct={setChooseProduct} />
           </SwiperSlide>
         ))}
       </Swiper>
+      {chooseProduct && (
+        <ProductBookingModal
+          chooseProduct={chooseProduct}
+          setChooseProduct={setChooseProduct}
+        ></ProductBookingModal>
+      )}
     </>
   );
 };
