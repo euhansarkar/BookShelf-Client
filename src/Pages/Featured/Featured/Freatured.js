@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import ProductBookingModal from "../../Products/ProductBookingModal/ProductBookingModal";
 import SingleProduct from "../../Products/SingleProduct";
 import { Helmet } from "react-helmet";
+import LoaderSpinner from "../../Shared/LoaderSpinner/LoaderSpinner";
 
 const Freatured = () => {
   const [chooseProduct, setChooseProduct] = useState(null);
@@ -18,7 +19,7 @@ const Freatured = () => {
   });
 
   if (isLoading) {
-    return `loading`;
+    return <LoaderSpinner/>;
   }
 
   return (

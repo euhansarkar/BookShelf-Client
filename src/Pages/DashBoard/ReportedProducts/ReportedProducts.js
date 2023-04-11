@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import ConfirmationModal from "../../Shared/ConfirmationModal/ConfirmationModal";
 import ReportedItem from "./ReportedItem";
 import { Helmet } from "react-helmet";
+import LoaderSpinner from "../../Shared/LoaderSpinner/LoaderSpinner";
 
 const ReportedProducts = () => {
   const [deleteReportedProduct, setDeleteReportedProduct] = useState(null);
@@ -17,7 +18,7 @@ const ReportedProducts = () => {
   });
 
   if (isLoading) {
-    return `loading`;
+    return <LoaderSpinner/>;
   }
 
   const closeModal = () => {

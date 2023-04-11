@@ -6,6 +6,7 @@ import ProductBookingModal from "../../Products/ProductBookingModal/ProductBooki
 import { Navigation, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Link } from "react-router-dom";
+import LoaderSpinner from "../../Shared/LoaderSpinner/LoaderSpinner";
 
 const AdvertisedProducts = () => {
   const [chooseProduct, setChooseProduct] = useState(null);
@@ -22,7 +23,7 @@ const AdvertisedProducts = () => {
   });
 
   if (isLoading) {
-    return `loading`;
+    return <LoaderSpinner/>;
   }
 
   return (

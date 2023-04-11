@@ -6,9 +6,11 @@ import AOS from "aos";
 import "aos/dist/aos";
 const CategoryNames = ({ category }) => {
   const { category_Name, category_id } = category;
+
   useEffect(() => {
     AOS.init({ duration: 2000 });
   }, []);
+  
   return (
     <div
       data-aos="fade-up"

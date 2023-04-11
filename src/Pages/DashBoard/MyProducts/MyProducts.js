@@ -5,6 +5,7 @@ import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
 import ConfirmationModal from "../../Shared/ConfirmationModal/ConfirmationModal";
 import MySingleProduct from "./MySingleProduct";
 import { Helmet } from "react-helmet";
+import LoaderSpinner from "../../Shared/LoaderSpinner/LoaderSpinner";
 
 const MyProducts = () => {
   const [advertised, setAdvertised] = useState(false);
@@ -27,7 +28,7 @@ const MyProducts = () => {
   });
 
   if (isLoading) {
-    return `loading`;
+    return <LoaderSpinner/>;
   }
 
   // console.log(products);

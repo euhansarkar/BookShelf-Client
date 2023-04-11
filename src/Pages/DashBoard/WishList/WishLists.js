@@ -3,6 +3,7 @@ import React, { useContext } from "react";
 import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
 import WishListItem from "./WishListItem";
 import { Helmet } from "react-helmet";
+import LoaderSpinner from "../../Shared/LoaderSpinner/LoaderSpinner";
 
 const WishLists = () => {
   const {
@@ -30,7 +31,7 @@ const WishLists = () => {
   });
 
   if (isLoading) {
-    return `loading`;
+    return <LoaderSpinner/>;
   }
 
   return (
