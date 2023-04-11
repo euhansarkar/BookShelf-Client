@@ -24,6 +24,7 @@ import SellerRoutes from "../SellerRoutes/SellerRoutes";
 import { Helmet } from "react-helmet";
 import ShowDetails from "../../Pages/Products/ShowDetails/ShowDetails";
 import Contact from "../../Pages/Home/Contact/Contact/Contact";
+import Freatured from "../../Pages/Featured/Featured/Freatured";
 
 const Routes = createBrowserRouter([
   {
@@ -53,7 +54,11 @@ const Routes = createBrowserRouter([
       },
       {
         path: `/contact`,
-        element: <Contact/>,
+        element: <Contact />,
+      },
+      {
+        path: `/featured`,
+        element: <Freatured />,
       },
       {
         path: `/category/:id`,

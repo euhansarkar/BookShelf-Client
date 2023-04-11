@@ -29,14 +29,14 @@ const Navbar = () => {
         <Link to={`/`}>
           <button className="font-semibold text-md">Home</button>
         </Link>
+        <Link to={`/featured`}>
+          <button className="font-semibold text-md">Featured</button>
+        </Link>
         <Link to={`/blogs`}>
           <button className="font-semibold text-md">Blogs</button>
         </Link>
         <Link to={`/about`}>
           <button className="font-semibold text-md">About</button>
-        </Link>
-        <Link to={`/featured`}>
-          <button className="font-semibold text-md">Featured</button>
         </Link>
         <Link to={`/contact`}>
           <button className="font-semibold text-md">Contact</button>
